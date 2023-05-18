@@ -8,6 +8,7 @@ import { Repairs } from "./components/repairs/repairs";
 import { Documents } from "./components/documents/documents";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./components/home/home";
+import { Footer } from "./components/footer/footer";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/repairs" element={<Repairs />} />
         <Route path="cars" element={<Cars />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

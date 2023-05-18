@@ -6,7 +6,7 @@ export const Navbar = () => {
     <div className="nav-bar">
       <Link to="/">
         <img
-          src="https://www.bestauto.bg/img/bestauto-logo-1619705927.jpg"
+          src={process.env.PUBLIC_URL + "/car-service-logo.png"}
           className="logo"
         />
       </Link>
