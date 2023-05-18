@@ -11,6 +11,11 @@
   align-items: center;
 }
 
+.nav-bar ul a {
+  color: aliceblue;
+  text-decoration: none;
+}
+
 .nav-bar ul {
   margin: auto 5rem auto 0;
   color: aliceblue;
@@ -32,6 +37,7 @@
 }
 
 .logo {
+  max-width: 150px;
+  display: block;
   margin: auto 0 auto 5rem;
-  color: aliceblue;
 }
