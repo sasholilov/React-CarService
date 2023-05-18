@@ -5,7 +5,7 @@ import { Register } from "./components/register/register";
 import { SignIn } from "./components/sign-in/sign-in";
 import { Services } from "./components/services/services";
 import { Repairs } from "./components/repairs/repairs";
-import { Reminders } from "./components/reminders/reminders";
+import { Documents } from "./components/documents/documents";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./components/home/home";
 
@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/reminders" element={<Reminders />} />
+        <Route path="/documents" element={<Documents />} />
         <Route path="/services" element={<Services />} />
         <Route path="/repairs" element={<Repairs />} />
         <Route path="cars" element={<Cars />} />

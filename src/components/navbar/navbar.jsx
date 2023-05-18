@@ -20,8 +20,8 @@ export const Navbar = () => {
         <Link to="/cars">
           <li>Моите автомобили</li>
         </Link>
-        <Link to="/reminders">
-          <li>Напомняния</li>
+        <Link to="/documents">
+          <li>Документи</li>
         </Link>
         <Link to="/register">
           <li>Регистрация</li>
