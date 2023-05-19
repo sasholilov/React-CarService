@@ -1,17 +1,108 @@
+import { useState, useEffect } from "react";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
 import "./register.css";
+import { auth } from "../../firebase-config";
+import { updateProfile } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [registerConfirmPassword, setRegisterConfirmPassword] = useState("");
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, [user]);
+
+  const handleNameOnChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleLastNameOnChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  const handleEmailOnChange = (event) => {
+    setRegisterEmail(event.target.value);
+  };
+
+  const handlePasswordOnChange = (event) => {
+    setRegisterPassword(event.target.value);
+  };
+
+  const handleConfirmPasswordOnChange = (event) => {
+    setRegisterConfirmPassword(event.target.value);
+  };
+
+  const createUser = async () => {
+    if (registerPassword === registerConfirmPassword) {
+      try {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          registerEmail,
+          registerPassword
+        );
+
+        const user = userCredential.user;
+        await updateDisplayName(user, name, lastName);
+
+        console.log(userCredential);
+      } catch (error) {
+        console.log(error.message);
+      }
+      navigate("/");
+    } else {
+      alert("Паролата не съвпада");
+    }
+  };
+
+  const updateDisplayName = async (user, name, lastName) => {
+    const displayName = `${name} ${lastName}`;
+
+    try {
+      await updateProfile(user, { displayName });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div>
-      <form className="container-form">
+      <section className="container-form">
         <p>Създай нова регистрация</p>
-        <input type="text" placeholder="Име" />
-        <input type="text" placeholder="Фамилия" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Парола" />
-        <input type="password" placeholder="Повтори паролата" />
-        <button type="submit">Създай</button>
-      </form>
+        <input type="text" placeholder="Име" onChange={handleNameOnChange} />
+        <input
+          type="text"
+          placeholder="Фамилия"
+          onChange={handleLastNameOnChange}
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          onChange={handleEmailOnChange}
+        />
+        <input
+          type="password"
+          placeholder="Парола"
+          onChange={handlePasswordOnChange}
+        />
+        <input
+          type="password"
+          placeholder="Повтори паролата"
+          onChange={handleConfirmPasswordOnChange}
+        />
+        <button onClick={createUser}>Създай</button>
+      </section>
     </div>
   );
 };
