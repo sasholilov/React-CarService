@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import "./register.css";
 import { auth } from "../../firebase-config";
 import { updateProfile } from "firebase/auth";
@@ -14,15 +11,8 @@ export const Register = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerConfirmPassword, setRegisterConfirmPassword] = useState("");
-  const [user, setUser] = useState({});
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
-  }, [user]);
+  const navigate = useNavigate();
 
   const handleNameOnChange = (event) => {
     setName(event.target.value);
@@ -55,8 +45,6 @@ export const Register = () => {
 
         const user = userCredential.user;
         await updateDisplayName(user, name, lastName);
-
-        console.log(userCredential);
       } catch (error) {
         console.log(error.message);
       }
