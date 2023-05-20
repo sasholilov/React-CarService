@@ -9,6 +9,7 @@ import { Documents } from "./components/documents/documents";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./components/home/home";
 import { Footer } from "./components/footer/footer";
+import { Profile } from "./components/profile/profile";
 import UserContext from "./components/context/userContext.js";
 import { auth } from "./firebase-config";
 import { useState, useEffect } from "react";
@@ -34,7 +35,8 @@ function App() {
           <Route path="/documents" element={<Documents />} />
           <Route path="/services" element={<Services />} />
           <Route path="/repairs" element={<Repairs />} />
-          <Route path="cars" element={<Cars />} />
+          <Route path="/cars" element={<Cars />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         <Footer />
       </UserContext.Provider>

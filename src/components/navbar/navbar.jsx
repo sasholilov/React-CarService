@@ -4,13 +4,17 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase-config";
+import { useNavigate } from "react-router-dom";
+import { Loading } from "../loading/loading";
 
 export const Navbar = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const signOutHandler = async () => {
     await signOut(auth);
+    navigate("/");
   };
 
   useEffect(() => {
@@ -34,7 +38,7 @@ export const Navbar = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
@@ -59,7 +63,9 @@ export const Navbar = () => {
           <li>Документи</li>
         </Link>
         {user ? (
-          <li>{user.displayName}</li>
+          <Link to="/profile">
+            <li>{user.displayName}</li>
+          </Link>
         ) : (
           <Link to="/register">
             <li>Регистрация</li>

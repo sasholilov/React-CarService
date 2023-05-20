@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./sign-in.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase-config";
@@ -6,6 +6,20 @@ import { useNavigate } from "react-router-dom";
 
 export const SignIn = () => {
   const navigate = useNavigate();
+
+  const buttonEnter = useRef();
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Enter") {
+        buttonEnter.current.click();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   const [signInEmail, setSignInEmail] = useState("");
   const [singInPassword, setSingInPassword] = useState("");
@@ -40,7 +54,9 @@ export const SignIn = () => {
           placeholder="Password"
           onChange={signInPasswordHandler}
         />
-        <button onClick={signInWithEmailAndPasswordAction}>Вход</button>
+        <button onClick={signInWithEmailAndPasswordAction} ref={buttonEnter}>
+          Вход
+        </button>
       </section>
     </div>
   );
