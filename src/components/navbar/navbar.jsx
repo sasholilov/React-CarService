@@ -1,6 +1,7 @@
 import "./navbar.css";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import UserContext from "../context/userContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase-config";
@@ -11,6 +12,7 @@ export const Navbar = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const userCntx = useContext(UserContext);
 
   const signOutHandler = async () => {
     await signOut(auth);
@@ -64,7 +66,7 @@ export const Navbar = () => {
         </Link>
         {user ? (
           <Link to="/profile">
-            <li>{user.displayName}</li>
+            <li>{userCntx.user.displayName}</li>
           </Link>
         ) : (
           <Link to="/register">

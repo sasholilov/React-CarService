@@ -10,23 +10,12 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from "./components/home/home";
 import { Footer } from "./components/footer/footer";
 import { Profile } from "./components/profile/profile";
-import UserContext from "./components/context/userContext.js";
-import { auth } from "./firebase-config";
-import { useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { UserProvider } from "./components/context/userContext.js";
 
 function App() {
-  const [user, setUser] = useState({});
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
-  }, [user]);
-
   return (
     <div>
-      <UserContext.Provider value={user}>
+      <UserProvider>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -39,7 +28,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
         </Routes>
         <Footer />
-      </UserContext.Provider>
+      </UserProvider>
     </div>
   );
 }
