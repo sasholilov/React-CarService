@@ -1,16 +1,12 @@
 import "./navbar.css";
 import { Link } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import UserContext from "../context/userContext";
-import { onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase-config";
 import { useNavigate } from "react-router-dom";
-import { Loading } from "../loading/loading";
 
 export const Navbar = () => {
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const userCntx = useContext(UserContext);
 
@@ -18,30 +14,6 @@ export const Navbar = () => {
     await signOut(auth);
     navigate("/");
   };
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, [user]);
-
-  useEffect(() => {
-    if (user && !user.displayName && !loading) {
-      fetchUserDisplayName();
-    }
-  }, [user, loading]);
-
-  const fetchUserDisplayName = async () => {
-    const { displayName } = await auth.currentUser;
-    setUser((prevUser) => ({ ...prevUser, displayName }));
-  };
-
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <div className="nav-bar">
@@ -64,7 +36,7 @@ export const Navbar = () => {
         <Link to="/documents">
           <li>Документи</li>
         </Link>
-        {user ? (
+        {userCntx.user ? (
           <Link to="/profile">
             <li>{userCntx.user.displayName}</li>
           </Link>
@@ -73,7 +45,7 @@ export const Navbar = () => {
             <li>Регистрация</li>
           </Link>
         )}
-        {user ? (
+        {userCntx.user ? (
           <li onClick={signOutHandler}>Изход</li>
         ) : (
           <Link to="/sign-in">

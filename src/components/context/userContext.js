@@ -1,15 +1,18 @@
 import { createContext, useState, useEffect } from "react";
 import { auth } from "../../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
+import { Loading } from "../loading/loading";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
     });
     return () => unsubscribe();
   }, [user]);
@@ -17,7 +20,9 @@ export const UserProvider = ({ children }) => {
   const updateUserContext = (newUserData) => {
     setUser(newUserData);
   };
-
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <UserContext.Provider value={{ user, updateUserContext }}>
       {children}
