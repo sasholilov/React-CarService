@@ -30,7 +30,7 @@ export const SignIn = () => {
     setSingInPassword(event.target.value);
   };
 
-  const signInWithEmailAndPasswordAction = async () => {
+  const signIn = async () => {
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -54,7 +54,7 @@ export const SignIn = () => {
           placeholder="Password"
           onChange={signInPasswordHandler}
         />
-        <button onClick={signInWithEmailAndPasswordAction} ref={buttonEnter}>
+        <button onClick={signIn} ref={buttonEnter}>
           Вход
         </button>
       </section>

@@ -35,7 +35,6 @@ export const Profile = () => {
         const newMail = await updateEmail(auth.currentUser, newEmail);
         setNewEmail("");
       }
-
       // Update the profile
       if (newFirstName && newLastName) {
         await updateProfile(auth.currentUser, {

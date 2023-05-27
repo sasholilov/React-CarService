@@ -20,6 +20,7 @@ export const UserProvider = ({ children }) => {
   const updateUserContext = (newUserData) => {
     setUser(newUserData);
   };
+
   if (loading) {
     return <Loading />;
   }

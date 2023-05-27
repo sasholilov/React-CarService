@@ -7,11 +7,18 @@ import { useContext } from "react";
 import UserContext from "../context/userContext";
 
 export const Cars = () => {
-  const data = {
-    make: "Mercedes",
-    model: "E-Class",
-    year: "W211 (2004-209)",
-  };
+  const data = [
+    {
+      make: "Mercedes",
+      model: "E-Class",
+      year: "W211 (2004-209)",
+    },
+    {
+      make: "BMW",
+      model: "5 Series",
+      year: "E60 (2004-2009)",
+    },
+  ];
 
   const currentUser = useContext(UserContext);
 
@@ -54,9 +61,36 @@ export const Cars = () => {
   return (
     <div>
       <section>
-        <input type="text" placeholder="Марка" />
-        <input type="text" placeholder="Модел" />
-        <input type="text" placeholder="Година" />
+        <label for="make">Избери марка:</label>
+        <select id="make" name="make">
+          {data.map((car, index) => {
+            return (
+              <option key={index} value={car.make}>
+                {car.make}
+              </option>
+            );
+          })}
+        </select>
+        <label for="model">Избери модел:</label>
+        <select id="model" name="model">
+          {data.map((model, index) => {
+            return (
+              <option key={index} value={model.model}>
+                {model.model}
+              </option>
+            );
+          })}
+        </select>
+        <label for="year">Избери година:</label>
+        <select id="year" name="year">
+          {data.map((year, index) => {
+            return (
+              <option key={index} value={year.year}>
+                {year.year}
+              </option>
+            );
+          })}
+        </select>
         <button onClick={() => addDataToFirestore(data)}>
           Добави автомобил
         </button>
