@@ -10,8 +10,8 @@ export const Cars = () => {
   const data = [
     {
       make: "Mercedes",
-      model: "E-Class",
-      year: "W211 (2004-209)",
+      model: "G-Class",
+      year: "G463 (1989-2018)",
     },
     {
       make: "BMW",
@@ -91,7 +91,7 @@ export const Cars = () => {
             );
           })}
         </select>
-        <button onClick={() => addDataToFirestore(data)}>
+        <button onClick={() => addDataToFirestore(data[0])}>
           Добави автомобил
         </button>
       </section>
