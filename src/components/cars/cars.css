@@ -1,0 +1,14 @@
+.container-form-cars {
+  box-shadow: 0 1px 10px 1px #252e46;
+  margin: 2rem 10rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.container-form-cars select {
+  padding: 0.4rem 4.2rem 0.4rem 4.2rem;
+  text-align: center;
+}

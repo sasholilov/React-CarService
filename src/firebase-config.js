@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, collection, doc, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCuc-NZvkMwAojm3zVbtSwcdPm3fRX1Occ",
@@ -19,3 +19,29 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+export const getCarsForCurrentUser = async () => {
+  try {
+    if (!auth.currentUser) {
+      console.log("User not loaded yet.");
+      return;
+    }
+
+    const userCollection = collection(db, "users");
+    const userDocRef = doc(userCollection, auth.currentUser.uid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      const cars = userData.cars;
+      console.log("Cars for current user:", cars);
+      return cars;
+    } else {
+      console.log("User document does not exist.");
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+// Call the function to retrieve the cars for the current user
