@@ -95,6 +95,44 @@ export const Cars = () => {
     }
   };
 
+  const handleUpdateCar = async (car, i) => {
+    try {
+      const userCollection = collection(db, "users");
+      const userDocRef = doc(userCollection, currentUser.user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        // User document exists, find the index of the car in the 'cars' array
+        const carIndex = myCars.findIndex((c) => c === car);
+
+        if (carIndex !== -1) {
+          // Car found in the array, update the car at the specified index
+          const updatedCars = [...myCars];
+          const updatedCar = {
+            engine: myCars[i].engine,
+            exactYear: myCars[i].exactYear,
+            odometer: myCars[i].odometer,
+            horsePower: myCars[i].horsePower,
+            make: myCars[i].make,
+            model: myCars[i].model,
+            year: myCars[i].year,
+          };
+          updatedCars[carIndex] = updatedCar; // Replace 'updatedCar' with the updated car object
+
+          await updateDoc(userDocRef, {
+            cars: updatedCars,
+          });
+
+          setMycars(updatedCars);
+          setAddet(true);
+          console.log("Car updated successfully!");
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   if (!currentUser.user) {
     console.log("User not loaded yet.");
     return <h1>Моля влезте в профила си!</h1>;
@@ -102,6 +140,13 @@ export const Cars = () => {
   console.log("User is loaded", currentUser.user.uid);
 
   const addDataToFirestore = async (data) => {
+    const extendChoisedCar = {
+      ...choisedCar,
+      exactYear: "",
+      odometer: "",
+      horsePower: "",
+      engine: "",
+    };
     try {
       const userCollection = collection(db, "users");
       const userDocRef = doc(userCollection, currentUser.user.uid);
@@ -110,12 +155,12 @@ export const Cars = () => {
       if (userDocSnap.exists()) {
         // User document exists, update the 'cars' array field
         await updateDoc(userDocRef, {
-          cars: arrayUnion(choisedCar),
+          cars: arrayUnion(extendChoisedCar),
         });
       } else {
         // User document doesn't exist, create a new document
         await setDoc(userDocRef, {
-          cars: [choisedCar],
+          cars: [extendChoisedCar],
         });
       }
 
@@ -182,11 +227,31 @@ export const Cars = () => {
                 <h3>
                   {car.make} {car.model} {car.year}
                 </h3>
-                <span>Some text</span>
-                <span>Some text</span>
-                <span>Some text</span>
+                <input
+                  placeholder="Въведете точна година на производство"
+                  onChange={(e) => (car.exactYear = e.target.value)}
+                  defaultValue={car.exactYear}
+                />
+                <input
+                  placeholder="Текущ километраж"
+                  onChange={(e) => (car.odometer = e.target.value)}
+                  defaultValue={car.odometer}
+                />
+
+                <input
+                  placeholder="Конски сили"
+                  onChange={(e) => (car.horsePower = e.target.value)}
+                  defaultValue={car.horsePower}
+                />
+                <input
+                  placeholder="Двигател"
+                  onChange={(e) => (car.engine = e.target.value)}
+                  defaultValue={car.engine}
+                />
                 <section className="cars-btn">
-                  <button>Edit</button>
+                  <button onClick={() => handleUpdateCar(car, i)}>
+                    Update
+                  </button>
                   <button onClick={() => handleDeleteCar(car)}>Delete</button>
                 </section>
               </div>

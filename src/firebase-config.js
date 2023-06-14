@@ -38,6 +38,7 @@ export const getCarsForCurrentUser = async () => {
       return cars;
     } else {
       console.log("User document does not exist.");
+      return {};
     }
   } catch (error) {
     console.log(error.message);
