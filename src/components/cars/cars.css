@@ -12,3 +12,35 @@
   padding: 0.4rem 4.2rem 0.4rem 4.2rem;
   text-align: center;
 }
+
+.my-cars-container {
+  width: 68em;
+  margin: 0 auto 3rem auto;
+  display: grid;
+  grid-template-columns: 4fr 4fr;
+  grid-gap: 20px;
+}
+
+.car-item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 12px;
+}
+
+.cars-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.cars-btn button {
+  margin: 0.25em;
+  font-size: 0.8em;
+  padding: 0.7em 1.2em 0.7em 1.2em;
+}
+
+.cars-btn button:last-child {
+  background-color: rgb(212, 97, 97);
+}

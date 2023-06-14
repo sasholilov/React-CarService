@@ -21,8 +21,8 @@ export const Cars = () => {
   useEffect(() => {
     getCarsForCurrentUser()
       .then((cars) => {
-        setMycars(cars);
-        setAddet(false); // Set the fetched cars in the myCars state
+        setMycars(cars); // Set the fetched cars in the myCars state
+        setAddet(false);
       })
       .catch((error) => {
         console.log(error.message);
@@ -74,6 +74,25 @@ export const Cars = () => {
       model: selectedModel,
       year: choisedYear,
     });
+  };
+
+  const handleDeleteCar = async (car) => {
+    try {
+      const userCollection = collection(db, "users");
+      const userDocRef = doc(userCollection, currentUser.user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        // User document exists, remove the car from the 'cars' array field
+        const updatedCars = myCars.filter((c) => c !== car);
+        await updateDoc(userDocRef, {
+          cars: updatedCars,
+        });
+        setMycars(updatedCars);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   if (!currentUser.user) {
@@ -154,16 +173,25 @@ export const Cars = () => {
           Добави автомобил
         </button>
       </section>
-      {myCars ? (
+      {myCars.length > 0 ? (
         <div>
           <h1>Списък с регистрираните автомобили</h1>
-          <ul>
-            {myCars.map((car) => (
-              <li>
-                {car.make} - {car.model} - {car.year}
-              </li>
+          <section className="my-cars-container">
+            {myCars.map((car, i) => (
+              <div key={i} className="car-item">
+                <h3>
+                  {car.make} {car.model} {car.year}
+                </h3>
+                <span>Some text</span>
+                <span>Some text</span>
+                <span>Some text</span>
+                <section className="cars-btn">
+                  <button>Edit</button>
+                  <button onClick={() => handleDeleteCar(car)}>Delete</button>
+                </section>
+              </div>
             ))}
-          </ul>
+          </section>
         </div>
       ) : (
         <h1>Нямате регистрирани автомобили</h1>
