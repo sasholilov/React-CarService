@@ -1,0 +1,64 @@
+h3,
+h1 {
+  text-align: center;
+  color: #252e46;
+}
+
+.my-cars-list {
+  width: 68em;
+  margin: 0 auto 3rem auto;
+}
+
+.list-car-item {
+  overflow: hidden;
+  overflow-y: hidden;
+  border: 1px solid #252e46;
+  border-radius: 0.5em;
+  height: auto;
+  margin-bottom: 1em;
+}
+
+.list-car-item img {
+  display: block;
+  max-width: 24em;
+  border-top-right-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  float: left;
+  margin-right: 20px;
+  object-fit: cover;
+}
+.my-cars-list h3 {
+  text-align: left;
+  text-decoration: underline;
+  margin-bottom: 0;
+}
+
+.my-cars-list span {
+  font-weight: bold;
+  color: #252e46;
+}
+.cars-list-header {
+  width: 68em;
+  margin: 1em auto 1em auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px dotted;
+  border-radius: 0.5em;
+}
+.cars-list-header h1 {
+  margin-left: 0.5em;
+}
+
+.my-cars-container label {
+  padding: 0;
+  margin: 1em 1em -1em 3.6em;
+  font-size: 14px;
+  text-align: left;
+}
+
+.no-cars {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -1,3 +1,8 @@
+h3,
+h1 {
+  text-align: center;
+  color: #252e46;
+}
 .container-form-cars {
   box-shadow: 0 1px 10px 1px #252e46;
   margin: 2rem 10rem;
@@ -5,12 +10,22 @@
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-end;
 }
 
 .container-form-cars select {
+  margin: 1.4em auto;
   padding: 0.4rem 4.2rem 0.4rem 4.2rem;
   text-align: center;
+}
+
+.car-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 12px;
 }
 
 .my-cars-container {
@@ -21,20 +36,18 @@
   grid-gap: 20px;
 }
 
-.car-item {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid grey;
-  border-radius: 5px;
-  padding: 12px;
+.my-cars-container label {
+  padding: 0;
+  margin: 1em 1em -1em 3.6em;
+  font-size: 14px;
+  text-align: left;
 }
-
 .cars-btn {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
+  margin-top: 1em;
 }
-
 .cars-btn button {
   margin: 0.25em;
   font-size: 0.8em;

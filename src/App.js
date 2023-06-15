@@ -1,16 +1,17 @@
 import "./App.css";
-import { Navbar } from "./components/navbar/navbar";
-import { Cars } from "./components/cars/cars";
-import { Register } from "./components/register/register";
-import { SignIn } from "./components/sign-in/sign-in";
-import { Services } from "./components/services/services";
-import { Repairs } from "./components/repairs/repairs";
-import { Documents } from "./components/documents/documents";
-import { Routes, Route } from "react-router-dom";
-import { Home } from "./components/home/home";
-import { Footer } from "./components/footer/footer";
-import { Profile } from "./components/profile/profile";
+import { Navbar } from "./components/navbar/navbar.component";
+import { Cars } from "./components/cars/cars.component";
+import { Register } from "./components/register/register.component";
+import { SignIn } from "./components/sign-in/sign-in.component";
+import { Services } from "./components/services/services.component";
+import { Repairs } from "./components/repairs/repairs.component";
+import { Documents } from "./components/documents/documents.component";
+import { Routes, Route, Outlet } from "react-router-dom";
+import { Home } from "./components/home/home.component";
+import { Footer } from "./components/footer/footer.component";
+import { Profile } from "./components/profile/profile.component";
 import { UserProvider } from "./components/context/userContext.js";
+import { CarsUpdate } from "./components/cars/cars-update.component";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/repairs" element={<Repairs />} />
           <Route path="/cars" element={<Cars />} />
+          <Route path="/cars/carsupdate" element={<CarsUpdate />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
         <Footer />

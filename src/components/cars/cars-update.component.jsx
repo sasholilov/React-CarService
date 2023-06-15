@@ -5,10 +5,12 @@ import { db, getCarsForCurrentUser } from "../../firebase-config";
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../context/userContext";
 import { data } from "../../data";
-import "./cars.css";
+import { useNavigate } from "react-router-dom";
+import "./cars-update.css";
 
-export const Cars = () => {
+export const CarsUpdate = () => {
   const currentUser = useContext(UserContext);
+  const navigate = useNavigate();
   const [selectedMake, setSelectedMake] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
@@ -116,6 +118,7 @@ export const Cars = () => {
             make: myCars[i].make,
             model: myCars[i].model,
             year: myCars[i].year,
+            carImgUrl: myCars[i].carImgUrl,
           };
           updatedCars[carIndex] = updatedCar; // Replace 'updatedCar' with the updated car object
 
@@ -126,6 +129,7 @@ export const Cars = () => {
           setMycars(updatedCars);
           setAddet(true);
           console.log("Car updated successfully!");
+          navigate("/cars");
         }
       }
     } catch (error) {
@@ -146,6 +150,7 @@ export const Cars = () => {
       odometer: "",
       horsePower: "",
       engine: "",
+      carImgUrl: "",
     };
     try {
       const userCollection = collection(db, "users");
@@ -213,40 +218,55 @@ export const Cars = () => {
             </option>
           ))}
         </select>
-
         <button onClick={() => addDataToFirestore(choisedCar)}>
           Добави автомобил
         </button>
       </section>
+
       {myCars.length > 0 ? (
         <div>
           <h1>Списък с регистрираните автомобили</h1>
+          <h3>Актуализация на данни</h3>
           <section className="my-cars-container">
             {myCars.map((car, i) => (
               <div key={i} className="car-item">
                 <h3>
                   {car.make} {car.model} {car.year}
                 </h3>
+                <label>Година на производство</label>
                 <input
+                  type="number"
                   placeholder="Въведете точна година на производство"
                   onChange={(e) => (car.exactYear = e.target.value)}
                   defaultValue={car.exactYear}
                 />
+                <label>Текущ километраж</label>
                 <input
-                  placeholder="Текущ километраж"
+                  type="number"
+                  placeholder="Въведете текущите показатели"
                   onChange={(e) => (car.odometer = e.target.value)}
                   defaultValue={car.odometer}
                 />
-
+                <label>Конски сили</label>
                 <input
+                  type="number"
                   placeholder="Конски сили"
                   onChange={(e) => (car.horsePower = e.target.value)}
                   defaultValue={car.horsePower}
                 />
+                <label>Двигател</label>
                 <input
-                  placeholder="Двигател"
+                  type="text"
+                  placeholder="Вид двигател и кубатура"
                   onChange={(e) => (car.engine = e.target.value)}
                   defaultValue={car.engine}
+                />
+                <label>Изображение</label>
+                <input
+                  type="text"
+                  placeholder="Въведете URL на изображението"
+                  onChange={(e) => (car.carImgUrl = e.target.value)}
+                  defaultValue={car.carImgUrl}
                 />
                 <section className="cars-btn">
                   <button onClick={() => handleUpdateCar(car, i)}>
@@ -259,7 +279,7 @@ export const Cars = () => {
           </section>
         </div>
       ) : (
-        <h1>Нямате регистрирани автомобили</h1>
+        <h1>Избери марка, модел и година</h1>
       )}
     </div>
   );
