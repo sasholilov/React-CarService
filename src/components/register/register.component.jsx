@@ -45,10 +45,10 @@ export const Register = () => {
 
         const user = userCredential.user;
         await updateDisplayName(user, name, lastName);
+        navigate("/");
       } catch (error) {
         console.log(error.message);
       }
-      navigate("/");
     } else {
       alert("Паролата не съвпада");
     }

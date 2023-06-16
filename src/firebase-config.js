@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, collection, doc, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -19,6 +20,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+export const signIn = async (signInEmail, singInPassword) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      signInEmail,
+      singInPassword
+    );
+    console.log(userCredential);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 export const getCarsForCurrentUser = async () => {
   try {
@@ -44,5 +58,3 @@ export const getCarsForCurrentUser = async () => {
     console.log(error.message);
   }
 };
-
-// Call the function to retrieve the cars for the current user

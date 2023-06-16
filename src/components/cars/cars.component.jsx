@@ -46,7 +46,7 @@ export const Cars = () => {
                   Година на производство: <span>{car.exactYear} година</span>
                 </p>
                 <p>
-                  Текущ километраж: <span>{car.odometer} километра</span>
+                  Текущ километраж: <span>{car.odometer} км.</span>
                 </p>
                 <p>
                   Конски сили: <span>{car.horsePower} к.с.</span>

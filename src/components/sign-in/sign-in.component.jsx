@@ -1,12 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import "./sign-in.css";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase-config";
 import { useNavigate } from "react-router-dom";
+import { signIn } from "../../firebase-config";
+import "./sign-in.css";
 
 export const SignIn = () => {
   const navigate = useNavigate();
-
   const buttonEnter = useRef();
 
   useEffect(() => {
@@ -30,18 +28,9 @@ export const SignIn = () => {
     setSingInPassword(event.target.value);
   };
 
-  const signIn = async () => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        signInEmail,
-        singInPassword
-      );
-      console.log(userCredential);
-      navigate("/");
-    } catch (error) {
-      console.log(error.message);
-    }
+  const signInHandler = function () {
+    signIn(signInEmail, singInPassword);
+    navigate("/");
   };
 
   return (
@@ -54,7 +43,7 @@ export const SignIn = () => {
           placeholder="Password"
           onChange={signInPasswordHandler}
         />
-        <button onClick={signIn} ref={buttonEnter}>
+        <button onClick={signInHandler} ref={buttonEnter}>
           Вход
         </button>
       </section>
