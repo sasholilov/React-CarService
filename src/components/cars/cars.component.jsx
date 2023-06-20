@@ -15,7 +15,7 @@ export const Cars = () => {
   useEffect(() => {
     getCarsForCurrentUser()
       .then((cars) => {
-        setMycars(cars); // Set the fetched cars in the myCars state
+        setMycars(cars);
       })
       .catch((error) => {
         console.log(error.message);
