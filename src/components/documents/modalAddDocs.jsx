@@ -13,12 +13,21 @@ export const ModalAddDocs = ({ setOpenModal }) => {
             X
           </button>
         </div>
-        <div className="title">
-          <h1>Are You Sure You Want to Continue?</h1>
+        <div className="modal-body">
+          <label id="label-docs-first">Избере тип документ</label>
+          <select>
+            <option>Винетка</option>
+            <option>Гражданска отговорност</option>
+            <option>ГТП</option>
+            <option>Автокаско</option>
+          </select>
+
+          <label>Валиден от</label>
+          <input type="date"></input>
+          <label>Валиден до</label>
+          <input type="date"></input>
         </div>
-        <div className="body">
-          <p>The next page looks amazing. Hope you want to go there!</p>
-        </div>
+
         <div className="footer">
           <button
             onClick={() => {
