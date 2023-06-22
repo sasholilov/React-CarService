@@ -1,20 +1,66 @@
 import "./modalAddDocs.css";
-import { useState, useEffect } from "react";
-import { getCarsForCurrentUser } from "../../firebase-config";
+import { useState, useEffect, useContext } from "react";
+import { db, getCarsForCurrentUser } from "../../firebase-config";
+import { collection, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import UserContext from "../context/userContext";
 
 export const ModalAddDocs = ({ setOpenModal }) => {
   const [myCars, setMycars] = useState([]);
-  const [choisedDoc, setChoisedDoc] = useState("Избери вид документ");
+  const [choisedDoc, setChoisedDoc] = useState("Винетка");
+  const [choisedCar, setChoisedCar] = useState("");
+  const [validFrom, setValidFrom] = useState("");
+  const [expireDate, setExpireDate] = useState("");
+  const currentUser = useContext(UserContext);
 
   useEffect(() => {
     getCarsForCurrentUser()
       .then((cars) => {
-        setMycars(cars);
+        if (cars.length > 0) {
+          setMycars(cars);
+          const firstCar = `${cars[0].make} ${cars[0].model} ${cars[0].year}`;
+          setChoisedCar(firstCar);
+        } else {
+          return;
+        }
       })
       .catch((error) => {
         console.log(error.message);
       });
   }, []);
+
+  console.log(choisedCar, validFrom, expireDate);
+
+  const addDocToFirestore = async () => {
+    const document = {
+      documentType: choisedDoc,
+      forCar: choisedCar,
+      validFrom: validFrom,
+      expireDate: expireDate,
+    };
+    try {
+      const userCollection = collection(db, "users");
+      const userDocRef = doc(userCollection, currentUser.user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        // User document exists, update the 'cars' array field
+        await updateDoc(userDocRef, {
+          documents: arrayUnion(document),
+        });
+      } else {
+        // User document doesn't exist, create a new document
+        await setDoc(userDocRef, {
+          documents: [document],
+        });
+      }
+
+      setOpenModal(false);
+      console.log("Success added");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className="modalBackground">
@@ -30,14 +76,6 @@ export const ModalAddDocs = ({ setOpenModal }) => {
         </div>
         <div className="modal-body">
           <h2>{choisedDoc}</h2>
-          <label>За автомобил</label>
-          <select>
-            {myCars.map((car, i) => (
-              <option key={i}>
-                {car.make} {car.model} {car.year}
-              </option>
-            ))}
-          </select>
           <label>Избере тип документ</label>
           <select onChange={(e) => setChoisedDoc(e.target.value)}>
             <option>Винетка</option>
@@ -45,10 +83,29 @@ export const ModalAddDocs = ({ setOpenModal }) => {
             <option>ГТП</option>
             <option>Автокаско</option>
           </select>
+          <label>За автомобил</label>
+          <select onChange={(e) => setChoisedCar(e.target.value)}>
+            {myCars.length > 0 ? (
+              myCars.map((car, i) => (
+                <option key={i}>
+                  {car.make} {car.model} {car.year}
+                </option>
+              ))
+            ) : (
+              <option>Нямате регистрирани автомобили</option>
+            )}
+          </select>
+
           <label>Валиден от</label>
-          <input type="date"></input>
+          <input
+            type="date"
+            onChange={(e) => setValidFrom(e.target.value)}
+          ></input>
           <label>Валиден до</label>
-          <input type="date"></input>
+          <input
+            type="date"
+            onChange={(e) => setExpireDate(e.target.value)}
+          ></input>
         </div>
 
         <div className="footer">
@@ -60,7 +117,7 @@ export const ModalAddDocs = ({ setOpenModal }) => {
           >
             Откажи
           </button>
-          <button>Добави</button>
+          <button onClick={addDocToFirestore}>Добави</button>
         </div>
       </div>
     </div>
