@@ -39,6 +39,18 @@ export const Documents = () => {
     }
   };
 
+  const isValidDocument = (currentDoc) => {
+    const currentDate = new Date();
+    const expire = new Date(currentDoc.expireDate);
+    const differenceInMs = expire - currentDate;
+    const differenceInDays = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
+    console.log(expire);
+    console.log(differenceInDays);
+    if (differenceInDays > 0) {
+      return true;
+    } else return false;
+  };
+
   return (
     <>
       <div className="no-docs">
@@ -50,9 +62,14 @@ export const Documents = () => {
         {myDocs.map((docs, index) => (
           <div className="document-card" key={index}>
             <h3>{docs.documentType}</h3>
-            <p>{docs.forCar}</p>
-            <p>{docs.validFrom}</p>
-            <p>{docs.expireDate}</p>
+            <p>За автомобил: {docs.forCar}</p>
+            <p>Платена на: {docs.validFrom}</p>
+            <p>Изтича на: {docs.expireDate}</p>
+            {isValidDocument(docs) ? (
+              <p className="active-doc">Активна</p>
+            ) : (
+              <p className="expire-doc">Изтекла</p>
+            )}
             <footer className="document-card-footer">
               <button>Edit</button>
               <button onClick={() => handleDeleteDoc(docs)}>Delete</button>
