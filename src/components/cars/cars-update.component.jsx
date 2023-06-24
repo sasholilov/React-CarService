@@ -1,7 +1,7 @@
 import React from "react";
 import { collection, updateDoc, arrayUnion } from "firebase/firestore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db, getCarsForCurrentUser } from "../../firebase-config";
+import { db, getDataFromFirestore } from "../../firebase-config";
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../context/userContext";
 import { data } from "../../data";
@@ -21,9 +21,9 @@ export const CarsUpdate = () => {
   const [added, setAddet] = useState(false);
 
   useEffect(() => {
-    getCarsForCurrentUser()
-      .then((cars) => {
-        setMycars(cars); // Set the fetched cars in the myCars state
+    getDataFromFirestore()
+      .then((data) => {
+        setMycars(data.cars); // Set the fetched cars in the myCars state
         setAddet(false);
       })
       .catch((error) => {

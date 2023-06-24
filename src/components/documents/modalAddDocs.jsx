@@ -1,6 +1,6 @@
 import "./modalAddDocs.css";
 import { useState, useEffect, useContext } from "react";
-import { db, getCarsForCurrentUser } from "../../firebase-config";
+import { db, getDataFromFirestore } from "../../firebase-config";
 import { collection, updateDoc, arrayUnion } from "firebase/firestore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import UserContext from "../context/userContext";
@@ -14,11 +14,11 @@ export const ModalAddDocs = ({ setOpenModal }) => {
   const currentUser = useContext(UserContext);
 
   useEffect(() => {
-    getCarsForCurrentUser()
-      .then((cars) => {
-        if (cars.length > 0) {
-          setMycars(cars);
-          const firstCar = `${cars[0].make} ${cars[0].model} ${cars[0].year}`;
+    getDataFromFirestore()
+      .then((data) => {
+        if (data.cars.length > 0) {
+          setMycars(data.cars);
+          const firstCar = `${data.cars[0].make} ${data.cars[0].model} ${data.cars[0].year}`;
           setChoisedCar(firstCar);
         } else {
           return;

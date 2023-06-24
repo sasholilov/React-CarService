@@ -1,11 +1,8 @@
 import React from "react";
-import { collection, updateDoc, arrayUnion } from "firebase/firestore";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db, getCarsForCurrentUser } from "../../firebase-config";
+import { getDataFromFirestore } from "../../firebase-config";
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../context/userContext";
 import { Link } from "react-router-dom";
-import { data } from "../../data";
 import "./cars-list.css";
 
 export const Cars = () => {
@@ -13,9 +10,9 @@ export const Cars = () => {
   const [myCars, setMycars] = useState([]);
 
   useEffect(() => {
-    getCarsForCurrentUser()
-      .then((cars) => {
-        setMycars(cars);
+    getDataFromFirestore()
+      .then((data) => {
+        setMycars(data.cars);
       })
       .catch((error) => {
         console.log(error.message);

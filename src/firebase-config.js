@@ -34,7 +34,7 @@ export const signIn = async (signInEmail, singInPassword) => {
   }
 };
 
-export const getCarsForCurrentUser = async () => {
+export const getDataFromFirestore = async () => {
   try {
     if (!auth.currentUser) {
       console.log("User not loaded yet.");
@@ -47,9 +47,9 @@ export const getCarsForCurrentUser = async () => {
 
     if (userDocSnap.exists()) {
       const userData = userDocSnap.data();
-      const cars = userData.cars;
-      console.log("Cars for current user:", cars);
-      return cars;
+      const data = userData;
+      console.log("Data for current user:", data);
+      return data;
     } else {
       console.log("User document does not exist.");
       return {};
