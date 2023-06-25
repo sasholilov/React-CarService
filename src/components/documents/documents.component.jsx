@@ -1,13 +1,16 @@
 import { useEffect, useState, useContext } from "react";
 import "./documents.styles.css";
 import { ModalAddDocs } from "./modalAddDocs";
+import { ModalUpdateDocs } from "./modalUpdateDocs";
 import { getDataFromFirestore, db } from "../../firebase-config";
 import { updateDoc, collection, getDoc, doc } from "firebase/firestore";
 import UserContext from "../context/userContext";
 
 export const Documents = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [myDocs, setMyDocs] = useState([]);
+  const [currentDoc, setCurrentDoc] = useState(null);
   const currentUser = useContext(UserContext);
 
   useEffect(() => {
@@ -39,6 +42,11 @@ export const Documents = () => {
     }
   };
 
+  const handleUpdateDoc = (docIndex) => {
+    setCurrentDoc(myDocs[docIndex]);
+    setOpenUpdateModal(true);
+  };
+
   const isValidDocument = (currentDoc) => {
     const currentDate = new Date();
     const expire = new Date(currentDoc.expireDate);
@@ -57,6 +65,12 @@ export const Documents = () => {
         <h1>Добави нов документ</h1>
         <button onClick={() => setModalOpen(true)}>Добави</button>
         {modalOpen && <ModalAddDocs setOpenModal={setModalOpen} />}
+        {openUpdateModal && (
+          <ModalUpdateDocs
+            setOpenUpdateModal={setOpenUpdateModal}
+            docToUpdate={currentDoc}
+          />
+        )}
       </div>
       <div className="documents-list">
         {myDocs.map((docs, index) => (
@@ -65,13 +79,14 @@ export const Documents = () => {
             <p>За автомобил: {docs.forCar}</p>
             <p>Платена на: {docs.validFrom}</p>
             <p>Изтича на: {docs.expireDate}</p>
+
             {isValidDocument(docs) ? (
               <p className="active-doc">Активна</p>
             ) : (
               <p className="expire-doc">Изтекла</p>
             )}
             <footer className="document-card-footer">
-              <button>Edit</button>
+              <button onClick={() => handleUpdateDoc(index)}>Edit</button>
               <button onClick={() => handleDeleteDoc(docs)}>Delete</button>
             </footer>
           </div>
