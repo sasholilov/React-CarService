@@ -73,7 +73,7 @@ export const Documents = () => {
         )}
       </div>
       <div className="documents-list">
-        {myDocs.map((docs, index) => (
+        {myDocs?.map((docs, index) => (
           <div className="document-card" key={index}>
             <h3>{docs.documentType}</h3>
 

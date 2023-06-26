@@ -223,12 +223,12 @@ export const CarsUpdate = () => {
         </button>
       </section>
 
-      {myCars.length > 0 ? (
+      {myCars?.length > 0 ? (
         <div>
           <h1>Списък с регистрираните автомобили</h1>
           <h3>Актуализация на данни</h3>
           <section className="my-cars-container">
-            {myCars.map((car, i) => (
+            {myCars?.map((car, i) => (
               <div key={i} className="car-item">
                 <h3>
                   {car.make} {car.model} {car.year}

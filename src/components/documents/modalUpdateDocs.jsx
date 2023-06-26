@@ -96,8 +96,8 @@ export const ModalUpdateDocs = ({ setOpenUpdateModal, docToUpdate }) => {
             value={choisedCar}
             onChange={(e) => setChoisedCar(e.target.value)}
           >
-            {myCars.length > 0 ? (
-              myCars.map((car, i) => (
+            {myCars?.length > 0 ? (
+              myCars?.map((car, i) => (
                 <option key={i}>
                   {car.make} {car.model} {car.year}
                 </option>
