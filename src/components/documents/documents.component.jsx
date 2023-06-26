@@ -21,7 +21,7 @@ export const Documents = () => {
       .catch((error) => {
         console.log(error.message);
       });
-  }, [modalOpen]);
+  }, [modalOpen, openUpdateModal]);
 
   const handleDeleteDoc = async (docs) => {
     try {
@@ -42,8 +42,8 @@ export const Documents = () => {
     }
   };
 
-  const handleUpdateDoc = (docIndex) => {
-    setCurrentDoc(myDocs[docIndex]);
+  const handleUpdateDoc = (docToUpdate) => {
+    setCurrentDoc(docToUpdate);
     setOpenUpdateModal(true);
   };
 
@@ -76,17 +76,28 @@ export const Documents = () => {
         {myDocs.map((docs, index) => (
           <div className="document-card" key={index}>
             <h3>{docs.documentType}</h3>
-            <p>За автомобил: {docs.forCar}</p>
-            <p>Платена на: {docs.validFrom}</p>
-            <p>Изтича на: {docs.expireDate}</p>
 
+            <p id="for-car">{docs.forCar}</p>
             {isValidDocument(docs) ? (
               <p className="active-doc">Активна</p>
             ) : (
               <p className="expire-doc">Изтекла</p>
             )}
+            <p>
+              Платена на:
+              <span>
+                {new Date(docs.validFrom).toLocaleDateString("bg-BG")}
+              </span>
+            </p>
+            <p>
+              Изтича на:
+              <span>
+                {new Date(docs.expireDate).toLocaleDateString("bg-BG")}
+              </span>
+            </p>
+
             <footer className="document-card-footer">
-              <button onClick={() => handleUpdateDoc(index)}>Edit</button>
+              <button onClick={() => handleUpdateDoc(docs)}>Edit</button>
               <button onClick={() => handleDeleteDoc(docs)}>Delete</button>
             </footer>
           </div>

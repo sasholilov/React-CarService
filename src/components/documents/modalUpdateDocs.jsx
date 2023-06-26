@@ -1,4 +1,4 @@
-import "./modalAddDocs.css";
+import "./modal.styles.css";
 import { useState, useEffect, useContext } from "react";
 import { db, getDataFromFirestore } from "../../firebase-config";
 import { collection, updateDoc, arrayUnion } from "firebase/firestore";
@@ -14,17 +14,58 @@ export const ModalUpdateDocs = ({ setOpenUpdateModal, docToUpdate }) => {
   const [myDocs, setMyDocs] = useState([]);
   const currentUser = useContext(UserContext);
 
-  console.log("TUK", docToUpdate);
-
   useEffect(() => {
     getDataFromFirestore()
       .then((data) => {
-        setMycars(data.cars); // Set the fetched cars in the myCars state
+        setMycars(data.cars);
+        setMyDocs(data.documents); // Set the fetched cars in the myCars state
       })
       .catch((error) => {
         console.log(error.message);
       });
   }, []);
+
+  const handleUpdateDoc = async () => {
+    try {
+      const userCollection = collection(db, "users");
+      const userDocRef = doc(userCollection, currentUser.user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        // User document exists, find the index of the car in the 'cars' array
+        const docIndex = myDocs.findIndex(
+          (d) =>
+            d.forCar === docToUpdate.forCar &&
+            d.documentType === docToUpdate.documentType
+        );
+        console.log(myDocs[0]);
+        console.log(docToUpdate);
+        console.log("tuk e indexa", docIndex);
+
+        if (docIndex !== -1) {
+          // Car found in the array, update the car at the specified index
+          const updatedDocs = [...myDocs];
+          const updatedDoc = {
+            documentType: choisedDoc,
+            expireDate: expireDate,
+            forCar: choisedCar,
+            validFrom: validFrom,
+          };
+          updatedDocs[docIndex] = updatedDoc; // Replace 'updatedCar' with the updated car object
+
+          await updateDoc(userDocRef, {
+            documents: updatedDocs,
+          });
+
+          setMyDocs(updatedDocs);
+          console.log("Document updated successfully!");
+          setOpenUpdateModal(false);
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className="modalBackground">
@@ -89,7 +130,7 @@ export const ModalUpdateDocs = ({ setOpenUpdateModal, docToUpdate }) => {
           >
             Откажи
           </button>
-          <button>Редактирай</button>
+          <button onClick={() => handleUpdateDoc()}>Редактирай</button>
         </div>
       </div>
     </div>

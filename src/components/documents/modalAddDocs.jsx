@@ -1,4 +1,4 @@
-import "./modalAddDocs.css";
+import "./modal.styles.css";
 import { useState, useEffect, useContext } from "react";
 import { db, getDataFromFirestore } from "../../firebase-config";
 import { collection, updateDoc, arrayUnion } from "firebase/firestore";
