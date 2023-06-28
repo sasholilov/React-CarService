@@ -12,10 +12,14 @@ h1 {
 .list-car-item {
   overflow: hidden;
   overflow-y: hidden;
-  border: 1px solid #252e46;
-  border-radius: 0.5em;
+  border-radius: 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
   height: auto;
   margin-bottom: 1em;
+}
+
+.list-car-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
 }
 
 .list-car-item img {

@@ -1,10 +1,10 @@
 import { useEffect, useState, useContext } from "react";
-import "./documents.styles.css";
 import { ModalAddDocs } from "./modalAddDocs";
 import { ModalUpdateDocs } from "./modalUpdateDocs";
 import { getDataFromFirestore, db } from "../../firebase-config";
 import { updateDoc, collection, getDoc, doc } from "firebase/firestore";
 import UserContext from "../context/userContext";
+import "./documents.styles.css";
 
 export const Documents = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -61,7 +61,7 @@ export const Documents = () => {
 
   return (
     <>
-      <div className="no-docs">
+      <div className="header-docs">
         <h1>Добави нов документ</h1>
         <button onClick={() => setModalOpen(true)}>Добави</button>
         {modalOpen && <ModalAddDocs setOpenModal={setModalOpen} />}
@@ -97,8 +97,8 @@ export const Documents = () => {
             </p>
 
             <footer className="document-card-footer">
-              <button onClick={() => handleUpdateDoc(docs)}>Edit</button>
-              <button onClick={() => handleDeleteDoc(docs)}>Delete</button>
+              <button onClick={() => handleUpdateDoc(docs)}>Редакция</button>
+              <button onClick={() => handleDeleteDoc(docs)}>Изтрий</button>
             </footer>
           </div>
         ))}
