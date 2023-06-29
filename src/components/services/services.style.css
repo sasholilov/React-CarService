@@ -3,3 +3,9 @@
   flex-direction: column;
   align-items: center;
 }
+
+.map-container {
+  margin-top: 10em;
+  width: 100vh;
+  height: 50vh;
+}
