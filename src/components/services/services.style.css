@@ -4,8 +4,16 @@
   align-items: center;
 }
 
+/** Map for google
 .map-container {
   margin-top: 10em;
   width: 100vh;
   height: 50vh;
+}**/
+
+/* sizing of map from leaflet*/
+.leaflet-container {
+  margin-top: 4em;
+  height: 50vh;
+  width: 80%;
 }
