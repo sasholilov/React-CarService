@@ -8,11 +8,13 @@ export const Services = () => {
   const [coordinates, setCoordinates] = useState({});
   const [city, setCity] = useState("София");
   const [addressServices, setAddressService] = useState("");
+  const [telephone, setTelephone] = useState("");
   const address = `${addressServices},${city}`;
 
   useEffect(() => {
     const fetchCoordinates = async () => {
       const result = await geocodeAddress(address);
+      console.log("result", result);
       setCoordinates(result);
     };
 
@@ -22,8 +24,6 @@ export const Services = () => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   });
-
-  console.log("proverka tuk", coordinates.longitude);
 
   if (!isLoaded) return <Loading />;
   return (
@@ -35,6 +35,10 @@ export const Services = () => {
       <input
         placeholder="Въведи адрес"
         onChange={(e) => setAddressService(e.target.value)}
+      />
+      <input
+        placeholder="Телефонен номер"
+        onChange={(e) => setTelephone(e.target.value)}
       />
       <GoogleMap
         zoom={10}

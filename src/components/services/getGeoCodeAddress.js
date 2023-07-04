@@ -8,7 +8,7 @@ export const geocodeAddress = async (address) => {
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedAddress}.json?access_token=${apiKey}`;
 
     const response = await axios.get(url);
-    console.log(response);
+    console.log("response", response);
     if (response.data.features.length > 0) {
       const coordinates = response.data.features[0].geometry.coordinates;
       const latitude = coordinates[1];
