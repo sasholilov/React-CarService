@@ -8,18 +8,21 @@ import "leaflet/dist/leaflet.css";
 import "./services.style.css";
 
 export const Services = () => {
-  const [coordinates, setCoordinates] = useState({});
+  const [coordinates, setCoordinates] = useState({
+    latitude: 42.697863,
+    longitude: 23.322179,
+  });
   const [city, setCity] = useState("София");
   const [addressServices, setAddressService] = useState("");
   const [telephone, setTelephone] = useState("");
   const [center, setCenter] = useState([42.697863, 23.322179]);
-  const address = `${addressServices},${city}`;
   const [isNewAddress, setIsNewAdrress] = useState(false);
   const customIcon = new Icon({
     iconUrl: require("./../../img/marker-icon.png"),
     iconSize: [38, 38],
   });
   const mapRef = useRef();
+  const address = `${addressServices},${city}`;
 
   useEffect(() => {
     const fetchCoordinates = async () => {

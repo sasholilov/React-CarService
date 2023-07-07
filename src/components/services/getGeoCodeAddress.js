@@ -15,7 +15,10 @@ export const geocodeAddress = async (address) => {
       const longitude = coordinates[0];
       return { latitude, longitude };
     } else {
-      console.log("No results found for the address.");
+      console.log(
+        "No results found for the address. Please type correct address!"
+      );
+      return { latitude: 42.697863, longitude: 23.322179 };
     }
   } catch (error) {
     console.log("An error occurred while geocoding:", error);
