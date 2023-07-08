@@ -7,6 +7,8 @@ import { ModalAddService } from "./modalAddService";
 import { Icon } from "leaflet";
 import { getDataFromFirestore, db } from "../../firebase-config";
 import { updateDoc, collection, getDoc, doc } from "firebase/firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapMarkerAlt, faPhone } from "@fortawesome/free-solid-svg-icons";
 import UserContext from "../context/userContext";
 import "leaflet/dist/leaflet.css";
 import "./services.style.css";
@@ -91,7 +93,19 @@ export const Services = () => {
                 onMouseEnter={() => setHoveredItem(i)}
                 onMouseLeave={() => setHoveredItem(null)}
               >
-                <h3>{`${s.nameOfService} - гр. ${s.city}`} </h3>
+                <h3>{s.nameOfService}</h3>
+                <p>
+                  <span>
+                    <FontAwesomeIcon icon={faMapMarkerAlt} />
+                  </span>
+                  гр. {s.city} {s.address}
+                </p>
+                <p>
+                  <span>
+                    <FontAwesomeIcon icon={faPhone} />
+                  </span>
+                  Телефон: {s.telephone}
+                </p>
                 {hoveredItem === i && (
                   <span
                     className="delete-service-item"
