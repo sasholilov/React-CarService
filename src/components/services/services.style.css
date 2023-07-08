@@ -13,7 +13,55 @@
 
 /* sizing of map from leaflet*/
 .leaflet-container {
-  margin-top: 4em;
-  height: 50vh;
-  width: 80%;
+  margin-top: 2em;
+  margin-right: 8em;
+  margin-left: 8em;
+  height: 65vh;
+  width: 60%;
+  border-radius: 1em;
+}
+
+.services-map {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.name-of-services {
+  margin-top: 1em;
+  margin-left: 8em;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-item {
+  position: relative;
+  border-radius: 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  margin: 1em;
+  padding: 0 3em 0 3em;
+  cursor: pointer;
+}
+
+.service-item:hover {
+  border-radius: 1em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
+}
+
+.delete-service-item {
+  position: absolute;
+  top: 0.2em;
+  right: 0.5em;
+  background-color: rgb(212, 97, 97);
+  color: #ffffff;
+  padding: 0.1em 0.5em 0.1em 0.5em;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.message-box {
+  background-color: rgb(255, 218, 182);
+  padding: 1.5em;
+  border-radius: 1em;
 }
