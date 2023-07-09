@@ -18,7 +18,7 @@ export const ModalAddDocs = ({ setOpenModal }) => {
       .then((data) => {
         if (data.cars.length > 0) {
           setMycars(data.cars);
-          const firstCar = `${data.cars[0].make} ${data.cars[0].model} ${data.cars[0].year}`;
+          const firstCar = `${data.cars[0].make} ${data.cars[0].model} ${data.cars[0].year} ${data.cars[0].licenseNumber}`;
           setChoisedCar(firstCar);
         } else {
           return;
@@ -88,7 +88,7 @@ export const ModalAddDocs = ({ setOpenModal }) => {
             {myCars.length > 0 ? (
               myCars.map((car, i) => (
                 <option key={i}>
-                  {car.make} {car.model} {car.year}
+                  {car.make} {car.model} {car.year} {car.licenseNumber}
                 </option>
               ))
             ) : (

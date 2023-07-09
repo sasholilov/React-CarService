@@ -40,6 +40,9 @@ export const Cars = () => {
                   {car.make} {car.model} {car.year}
                 </h3>
                 <p>
+                  Регистрационен номер: <span>{car.licenseNumber}</span>
+                </p>
+                <p>
                   Година на производство: <span>{car.exactYear} година</span>
                 </p>
                 <p>

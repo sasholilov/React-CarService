@@ -14,6 +14,7 @@ export const CarsUpdate = () => {
   const [selectedMake, setSelectedMake] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
+  const [licenseNumber, setLicenseNumber] = useState("");
   const [filteredModels, setFilteredModels] = useState([]);
   const [filteredYears, setFilteredYears] = useState([]);
   const [choisedCar, setChoisedCar] = useState({});
@@ -111,6 +112,7 @@ export const CarsUpdate = () => {
           // Car found in the array, update the car at the specified index
           const updatedCars = [...myCars];
           const updatedCar = {
+            licenseNumber: myCars[i].licenseNumber,
             engine: myCars[i].engine,
             exactYear: myCars[i].exactYear,
             odometer: myCars[i].odometer,
@@ -146,11 +148,13 @@ export const CarsUpdate = () => {
   const addDataToFirestore = async (data) => {
     const extendChoisedCar = {
       ...choisedCar,
+      licenseNumber: "",
       exactYear: "",
       odometer: "",
       horsePower: "",
       engine: "",
-      carImgUrl: "",
+      carImgUrl:
+        "https://boodabike.com/wp-content/uploads/2023/03/no-image.jpg",
     };
     try {
       const userCollection = collection(db, "users");
@@ -233,6 +237,13 @@ export const CarsUpdate = () => {
                 <h3>
                   {car.make} {car.model} {car.year}
                 </h3>
+                <label>Регистрационен номер</label>
+                <input
+                  type="text"
+                  placeholder="Въведи регистрационния номер на автомобила"
+                  onChange={(e) => (car.licenseNumber = e.target.value)}
+                  defaultValue={car.licenseNumber}
+                />
                 <label>Година на производство</label>
                 <input
                   type="number"
@@ -266,7 +277,6 @@ export const CarsUpdate = () => {
                   type="text"
                   placeholder="Въведете URL на изображението"
                   onChange={(e) => (car.carImgUrl = e.target.value)}
-                  defaultValue={car.carImgUrl}
                 />
                 <section className="cars-btn">
                   <button onClick={() => handleUpdateCar(car, i)}>

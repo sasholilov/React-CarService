@@ -99,7 +99,7 @@ export const ModalUpdateDocs = ({ setOpenUpdateModal, docToUpdate }) => {
             {myCars?.length > 0 ? (
               myCars?.map((car, i) => (
                 <option key={i}>
-                  {car.make} {car.model} {car.year}
+                  {car.make} {car.model} {car.year} {car.licenseNumber}
                 </option>
               ))
             ) : (
