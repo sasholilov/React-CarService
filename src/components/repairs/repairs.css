@@ -3,3 +3,56 @@
   flex-direction: column;
   align-items: center;
 }
+
+.repairs-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.repair-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 1em;
+  margin-left: 8em;
+  margin-right: 8em;
+  border-radius: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.repair-item:hover:not(.title) {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
+}
+
+.repair-item span {
+  flex-basis: 20%;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+#for-car-repair,
+#for-car-repair-title {
+  flex-basis: 25%;
+}
+
+.repair-item .amount {
+  font-weight: bold;
+  color: rgb(249, 65, 65);
+}
+
+.title {
+  font-weight: bold;
+  box-shadow: none;
+  margin-bottom: -1em;
+}
+
+.repair-item .amount.title {
+  margin-right: 1em; /* Add right margin to the amount title */
+}
