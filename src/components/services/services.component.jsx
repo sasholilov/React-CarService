@@ -1,6 +1,4 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import { geocodeAddress } from "./getGeoCodeAddress";
-import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { Loading } from "../loading/loading.component";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { ModalAddService } from "./modalAddService";
@@ -10,6 +8,7 @@ import { updateDoc, collection, getDoc, doc } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faPhone } from "@fortawesome/free-solid-svg-icons";
 import UserContext from "../context/userContext";
+
 import "leaflet/dist/leaflet.css";
 import "./services.style.css";
 
@@ -18,6 +17,7 @@ export const Services = () => {
   const [myServices, setMyServices] = useState([]);
   const [center, setCenter] = useState([42.697863, 23.322179]);
   const [hoveredItem, setHoveredItem] = useState(null);
+  const [loading, setLoading] = useState(true);
   const currentUser = useContext(UserContext);
   const customIcon = new Icon({
     iconUrl: require("./../../img/marker-icon.png"),
@@ -29,9 +29,11 @@ export const Services = () => {
     getDataFromFirestore()
       .then((data) => {
         setMyServices(data.services);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error.message);
+        setLoading(false);
       });
   }, [openModal]);
 
@@ -71,7 +73,8 @@ export const Services = () => {
       </div>
       <div className="services-map">
         <div className="name-of-services">
-          {myServices?.length === 0 && (
+          {loading && <Loading />}
+          {myServices?.length === 0 && !loading && (
             <h3 className="message-box">
               Все още нямате регистрирани сервизи!
             </h3>
