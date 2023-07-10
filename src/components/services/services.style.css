@@ -12,18 +12,20 @@
 }**/
 
 /* sizing of map from leaflet*/
-.leaflet-container {
-  margin: 2em 8em;
-  height: 50vh;
-  width: 60%;
-  border-radius: 1em;
-}
 
 .services-map {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
+  justify-content: space-around;
+}
+
+.leaflet-container {
+  margin-top: 3em;
+  margin-right: 8em;
+  height: 60vh;
+  max-width: 1020px;
+  width: 100%;
+  border-radius: 1em;
+  flex: 2;
 }
 
 .name-of-services {
@@ -40,6 +42,7 @@
   margin: 1em;
   padding: 0 3em 0 3em;
   cursor: pointer;
+  flex: 1;
 }
 
 .service-item:hover {

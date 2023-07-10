@@ -1,7 +1,28 @@
-.repairs-services {
+.repairs-header h3 {
+  margin-top: 0;
+}
+
+.repairs-header {
+  margin-top: 1em;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 8em;
+}
+
+.repairs-header-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.5em;
+  margin-right: 8em;
+}
+.button-add {
+  display: flex;
+  flex-direction: row;
+  font-size: 2em;
+  cursor: pointer;
+  color: rgb(133, 173, 73);
 }
 
 .repairs-list {
@@ -26,7 +47,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
 }
 
-.repair-item:hover:not(.title) {
+.repair-item:hover:not(.title, .icons) {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
 }
 
@@ -43,14 +64,26 @@
 }
 
 .repair-item .amount {
-  font-weight: bold;
-  color: rgb(249, 65, 65);
+  font-weight: 600;
+  color: white;
+}
+
+.amount-background {
+  background-color: #252e46;
+  border-radius: 1em;
+  padding: 0.25em 2em;
 }
 
 .title {
   font-weight: bold;
   box-shadow: none;
   margin-bottom: -1em;
+  margin-top: 0;
+}
+
+.icons {
+  box-shadow: none;
+  margin-bottom: -2em;
 }
 
 .repair-item .amount.title {
