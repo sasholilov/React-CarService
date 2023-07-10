@@ -8,7 +8,7 @@ export const Repairs = () => {
 
   return (
     <div className="repairs-services">
-      <h1>Добави нов сервиз</h1>
+      <h1>Регистрирай нов ремонт или обслужване</h1>
       <button onClick={() => setModalOpen(true)}>Добави</button>
       {modalOpen && <ModalAddRepairs setOpenModal={setModalOpen} />}
     </div>

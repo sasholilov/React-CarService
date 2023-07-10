@@ -1,5 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { db, getDataFromFirestore } from "../../firebase-config";
+import { collection, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import UserContext from "../context/userContext";
 
 export const ModalAddRepairs = ({ setOpenModal }) => {
   const [choisedCar, setChoisedCar] = useState("");
@@ -8,6 +11,8 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
   const [amount, setAmount] = useState(0);
   const [myCars, setMyCars] = useState([]);
   const [myServices, setMyServices] = useState([]);
+  const [onDate, setOnDate] = useState("");
+  const currentUser = useContext(UserContext);
 
   useEffect(() => {
     getDataFromFirestore()
@@ -20,6 +25,8 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
 
         if (data.services.length > 0) {
           setMyServices((prev) => data.services);
+          const firstService = data.services[0].nameOfService;
+          setChoisedService(firstService);
         } else {
           return;
         }
@@ -28,7 +35,39 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
         console.log(error.message);
       });
   }, []);
-  console.log(amount, typeOfRepair);
+
+  const addRepairToFirestore = async () => {
+    const repair = {
+      forCar: choisedCar,
+      service: choisedService,
+      typeOfRepair: typeOfRepair,
+      amount: amount,
+      onDate: onDate,
+    };
+    try {
+      const userCollection = collection(db, "users");
+      const userDocRef = doc(userCollection, currentUser.user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        // User document exists, update the 'cars' array field
+        await updateDoc(userDocRef, {
+          repairs: arrayUnion(repair),
+        });
+      } else {
+        // User document doesn't exist, create a new document
+        await setDoc(userDocRef, {
+          repairs: [repair],
+        });
+      }
+
+      setOpenModal(false);
+      console.log("Success added");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -70,6 +109,8 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
             type="text"
             onChange={(e) => setTypeOfRepair(e.target.value)}
           />
+          <label>На дата</label>
+          <input type="date" onChange={(e) => setOnDate(e.target.value)} />
           <label>Разход</label>
           <input type="number" onChange={(e) => setAmount(e.target.value)} />
         </div>
@@ -83,7 +124,7 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
           >
             Откажи
           </button>
-          <button>Добави</button>
+          <button onClick={addRepairToFirestore}>Добави</button>
         </div>
       </div>
     </div>
