@@ -13,10 +13,8 @@
 
 /* sizing of map from leaflet*/
 .leaflet-container {
-  margin-top: 2em;
-  margin-right: 8em;
-  margin-left: 8em;
-  height: 100vh;
+  margin: 2em 8em;
+  height: 50vh;
   width: 60%;
   border-radius: 1em;
 }
