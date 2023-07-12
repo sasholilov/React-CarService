@@ -3,6 +3,7 @@ import { db, getDataFromFirestore } from "../../firebase-config";
 import { collection, updateDoc, arrayUnion } from "firebase/firestore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import UserContext from "../context/userContext";
+import nextId from "react-id-generator";
 
 export const ModalAddRepairs = ({ setOpenModal }) => {
   const [choisedCar, setChoisedCar] = useState("");
@@ -38,6 +39,7 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
 
   const addRepairToFirestore = async () => {
     const repair = {
+      id: nextId(),
       forCar: choisedCar,
       service: choisedService,
       typeOfRepair: typeOfRepair,

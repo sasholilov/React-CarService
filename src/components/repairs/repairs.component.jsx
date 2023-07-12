@@ -36,7 +36,7 @@ export const Repairs = () => {
 
   return (
     <div>
-      {!modalOpen && (
+      {!modalOpen && !openUpdateModal && (
         <div className="repairs-header">
           <h3>История на ремонтите</h3>
           <div className="repairs-header-right">

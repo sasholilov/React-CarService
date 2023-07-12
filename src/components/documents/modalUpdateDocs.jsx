@@ -33,11 +33,7 @@ export const ModalUpdateDocs = ({ setOpenUpdateModal, docToUpdate }) => {
 
       if (userDocSnap.exists()) {
         // User document exists, find the index of the car in the 'cars' array
-        const docIndex = myDocs.findIndex(
-          (d) =>
-            d.forCar === docToUpdate.forCar &&
-            d.documentType === docToUpdate.documentType
-        );
+        const docIndex = myDocs.findIndex((d) => d.id === docToUpdate.id);
         console.log(myDocs[0]);
         console.log(docToUpdate);
         console.log("tuk e indexa", docIndex);

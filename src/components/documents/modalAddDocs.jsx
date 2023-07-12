@@ -4,6 +4,7 @@ import { db, getDataFromFirestore } from "../../firebase-config";
 import { collection, updateDoc, arrayUnion } from "firebase/firestore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import UserContext from "../context/userContext";
+import nextId from "react-id-generator";
 
 export const ModalAddDocs = ({ setOpenModal }) => {
   const [myCars, setMycars] = useState([]);
@@ -33,6 +34,7 @@ export const ModalAddDocs = ({ setOpenModal }) => {
 
   const addDocToFirestore = async () => {
     const document = {
+      id: nextId(),
       documentType: choisedDoc,
       forCar: choisedCar,
       validFrom: validFrom,
