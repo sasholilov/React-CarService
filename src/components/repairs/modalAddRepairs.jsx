@@ -3,7 +3,6 @@ import { db, getDataFromFirestore } from "../../firebase-config";
 import { collection, updateDoc, arrayUnion } from "firebase/firestore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import UserContext from "../context/userContext";
-import nextId from "react-id-generator";
 
 export const ModalAddRepairs = ({ setOpenModal }) => {
   const [choisedCar, setChoisedCar] = useState("");
@@ -13,6 +12,7 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
   const [myCars, setMyCars] = useState([]);
   const [myServices, setMyServices] = useState([]);
   const [onDate, setOnDate] = useState("");
+  const { v4: uuidv4 } = require("uuid");
   const currentUser = useContext(UserContext);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
 
   const addRepairToFirestore = async () => {
     const repair = {
-      id: nextId(),
+      id: uuidv4(),
       forCar: choisedCar,
       service: choisedService,
       typeOfRepair: typeOfRepair,

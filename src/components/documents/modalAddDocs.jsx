@@ -4,7 +4,6 @@ import { db, getDataFromFirestore } from "../../firebase-config";
 import { collection, updateDoc, arrayUnion } from "firebase/firestore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import UserContext from "../context/userContext";
-import nextId from "react-id-generator";
 
 export const ModalAddDocs = ({ setOpenModal }) => {
   const [myCars, setMycars] = useState([]);
@@ -13,6 +12,7 @@ export const ModalAddDocs = ({ setOpenModal }) => {
   const [validFrom, setValidFrom] = useState("");
   const [expireDate, setExpireDate] = useState("");
   const currentUser = useContext(UserContext);
+  const { v4: uuidv4 } = require("uuid");
 
   useEffect(() => {
     getDataFromFirestore()
@@ -34,7 +34,7 @@ export const ModalAddDocs = ({ setOpenModal }) => {
 
   const addDocToFirestore = async () => {
     const document = {
-      id: nextId(),
+      id: uuidv4(),
       documentType: choisedDoc,
       forCar: choisedCar,
       validFrom: validFrom,
