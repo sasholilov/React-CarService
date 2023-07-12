@@ -1,4 +1,5 @@
 import { ModalAddRepairs } from "./modalAddRepairs";
+import { ModalUpdateRepairs } from "./modalUpdateRepairs";
 import { getDataFromFirestore, db } from "../../firebase-config";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +17,7 @@ export const Repairs = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [myRepairs, setMayRepairs] = useState([]);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [currentRepair, setCurrentRepair] = useState(null);
 
   useEffect(() => {
     getDataFromFirestore()
@@ -25,7 +27,12 @@ export const Repairs = () => {
       .catch((error) => {
         console.log(error.message);
       });
-  }, [modalOpen]);
+  }, [modalOpen, openUpdateModal]);
+
+  const handleUpdateRepair = (repairToUpdate) => {
+    setCurrentRepair(repairToUpdate);
+    setOpenUpdateModal(true);
+  };
 
   return (
     <div>
@@ -41,6 +48,12 @@ export const Repairs = () => {
         </div>
       )}
       {modalOpen && <ModalAddRepairs setOpenModal={setModalOpen} />}
+      {openUpdateModal && (
+        <ModalUpdateRepairs
+          setOpenUpdateModal={setOpenUpdateModal}
+          repairToUpdate={currentRepair}
+        />
+      )}
       {myRepairs && (
         <div className="repairs-list">
           <div className="repair-item icons">
@@ -68,7 +81,11 @@ export const Repairs = () => {
             <span>Разход</span>
           </div>
           {myRepairs.map((r, i) => (
-            <div className="repair-item" key={i}>
+            <div
+              className="repair-item"
+              key={i}
+              onClick={() => handleUpdateRepair(r)}
+            >
               <span>{r.typeOfRepair}</span>
               <span>{r.service}</span>
               <span id="for-car-repair">{r.forCar}</span>
