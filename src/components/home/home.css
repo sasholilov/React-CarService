@@ -1,3 +1,67 @@
-h1 {
+.home-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Styles for the login and registration section */
+.home-login-register {
   text-align: center;
+  margin-bottom: 20px;
+}
+
+.home-login-register h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.home-login-register button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+/* Styles for the registered items section */
+.home-registered-items {
+  border: 1px solid;
+  margin-bottom: 20px;
+}
+
+.home-registered-items p {
+  margin-bottom: 5px;
+}
+
+.home-recent-items {
+  margin-bottom: 20px;
+  border: 1px solid;
+}
+
+.home-recent-items h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.home-statistic {
+  margin-bottom: 20px;
+  border: 1px solid;
+}
+
+.home-statistic h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.home-messages {
+  margin-bottom: 20px;
+  border: 1px solid;
+}
+
+.home-messages h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
 }
