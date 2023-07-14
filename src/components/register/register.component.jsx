@@ -66,7 +66,7 @@ export const Register = () => {
 
   return (
     <div>
-      <section className="container-form">
+      <section className="container-form-register">
         <p>Създай нова регистрация</p>
         <input type="text" placeholder="Име" onChange={handleNameOnChange} />
         <input

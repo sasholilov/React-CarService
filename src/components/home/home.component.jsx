@@ -26,7 +26,6 @@ export const Home = () => {
 
   return (
     <div>
-      (
       {curentUser.user === null ? (
         <div className="home-login-register">
           <h3>

@@ -35,7 +35,7 @@ export const SignIn = () => {
 
   return (
     <div>
-      <section className="container-form">
+      <div className="container-form-sign-in">
         <p>Влез в профила си</p>
         <input type="email" placeholder="Email" onChange={signInEmailHandler} />
         <input
@@ -46,7 +46,7 @@ export const SignIn = () => {
         <button onClick={signInHandler} ref={buttonEnter}>
           Вход
         </button>
-      </section>
+      </div>
     </div>
   );
 };
