@@ -1,0 +1,7 @@
+.button-add {
+  display: flex;
+  flex-direction: row;
+  font-size: 2em;
+  cursor: pointer;
+  color: rgb(133, 173, 73);
+}

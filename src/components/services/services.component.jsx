@@ -7,6 +7,7 @@ import { getDataFromFirestore, db } from "../../firebase-config";
 import { updateDoc, collection, getDoc, doc } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { Buttons } from "../buttons/buttons.component";
 import UserContext from "../context/userContext";
 
 import "leaflet/dist/leaflet.css";
@@ -67,8 +68,11 @@ export const Services = () => {
   return (
     <div>
       <div className="header-services">
-        <h1>Добави нов сервиз</h1>
-        <button onClick={() => setOpenModal(true)}>Добави</button>
+        <h3>Запазени сервизи</h3>
+        <div className="services-header-right">
+          <h3>Добави нов</h3>
+          <Buttons buttonStyle={"add"} onPush={() => setOpenModal(true)} />
+        </div>
         {openModal && <ModalAddService setOpenModal={setOpenModal} />}
       </div>
       <div className="services-map">

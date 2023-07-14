@@ -4,6 +4,7 @@ import { ModalUpdateDocs } from "./modalUpdateDocs";
 import { getDataFromFirestore, db } from "../../firebase-config";
 import { updateDoc, collection, getDoc, doc } from "firebase/firestore";
 import UserContext from "../context/userContext";
+import { Buttons } from "../buttons/buttons.component";
 import "./documents.styles.css";
 
 export const Documents = () => {
@@ -62,8 +63,11 @@ export const Documents = () => {
   return (
     <>
       <div className="header-docs">
-        <h1>Добави нов документ</h1>
-        <button onClick={() => setModalOpen(true)}>Добави</button>
+        <h3>Моите документи</h3>
+        <div className="services-header-right">
+          <h3>Добави нов</h3>
+          <Buttons buttonStyle={"add"} onPush={() => setModalOpen(true)} />
+        </div>
         {modalOpen && <ModalAddDocs setOpenModal={setModalOpen} />}
         {openUpdateModal && (
           <ModalUpdateDocs

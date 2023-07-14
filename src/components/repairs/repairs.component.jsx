@@ -2,6 +2,7 @@ import { ModalAddRepairs } from "./modalAddRepairs";
 import { ModalUpdateRepairs } from "./modalUpdateRepairs";
 import { getDataFromFirestore, db } from "../../firebase-config";
 import { useState, useEffect } from "react";
+import { Buttons } from "../buttons/buttons.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faScrewdriverWrench,
@@ -41,9 +42,7 @@ export const Repairs = () => {
           <h3>История на ремонтите</h3>
           <div className="repairs-header-right">
             <h3>Добави нов</h3>
-            <em className="button-add" onClick={() => setModalOpen(true)}>
-              <FontAwesomeIcon icon={faCirclePlus} />
-            </em>
+            <Buttons buttonStyle={"add"} onPush={() => setModalOpen(true)} />
           </div>
         </div>
       )}
