@@ -12,6 +12,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const userCntx = useContext(UserContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState("");
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -69,36 +70,50 @@ export const Navbar = () => {
       </div>
       <div className="menu-mobile-content">
         {menuOpen ? (
-          <ul className="menu-links-mobile">
-            <Link to="/repairs">
-              <li>Ремонти</li>
+          <div className="menu-links-mobile">
+            <Link to="/repairs" onClick={() => setActiveMenu("repairs")}>
+              <span className={activeMenu === "repairs" ? "active" : ""}>
+                Ремонти
+              </span>
             </Link>
-            <Link to="/services">
-              <li>Сервизи</li>
+            <Link to="/services" onClick={() => setActiveMenu("services")}>
+              <span className={activeMenu === "services" ? "active" : ""}>
+                Сервизи
+              </span>
             </Link>
-            <Link to="/cars">
-              <li>Моите автомобили</li>
+            <Link to="/cars" onClick={() => setActiveMenu("cars")}>
+              <span className={activeMenu === "cars" ? "active" : ""}>
+                Моите автомобили
+              </span>
             </Link>
-            <Link to="/documents">
-              <li>Документи</li>
+            <Link to="/documents" onClick={() => setActiveMenu("documents")}>
+              <span className={activeMenu === "documents" ? "active" : ""}>
+                Документи
+              </span>
             </Link>
             {userCntx.user ? (
-              <Link to="/profile">
-                <li>{userCntx.user.displayName}</li>
+              <Link to="/profile" onClick={() => setActiveMenu("profile")}>
+                <span className={activeMenu === "profile" ? "active" : ""}>
+                  {userCntx.user.displayName}
+                </span>
               </Link>
             ) : (
-              <Link to="/register">
-                <li>Регистрация</li>
+              <Link to="/register" onClick={() => setActiveMenu("register")}>
+                <span className={activeMenu === "register" ? "active" : ""}>
+                  Регистрация
+                </span>
               </Link>
             )}
             {userCntx.user ? (
-              <li onClick={signOutHandler}>Изход</li>
+              <span onClick={signOutHandler}>Изход</span>
             ) : (
-              <Link to="/sign-in">
-                <li>Вход</li>
+              <Link to="/sign-in" onClick={() => setActiveMenu("sign-in")}>
+                <span className={activeMenu === "sign-in" ? "active" : ""}>
+                  Вход
+                </span>
               </Link>
             )}
-          </ul>
+          </div>
         ) : (
           ""
         )}
