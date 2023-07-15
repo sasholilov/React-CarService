@@ -31,7 +31,7 @@ export const Navbar = () => {
             <FontAwesomeIcon icon={faBars} />
           </span>
         </div>
-        <Link to="/">
+        <Link to="/" onClick={() => setActiveMenu("")}>
           <img
             src={process.env.PUBLIC_URL + "/car-service-logo.png"}
             className="logo"
