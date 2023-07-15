@@ -23,11 +23,51 @@ export const Navbar = () => {
   };
 
   return (
-    <div className="nav-bar">
-      <div className="menu-mobile" onClick={toggleMenu}>
-        <span className="menu-icon">
-          <FontAwesomeIcon icon={faBars} />
-        </span>
+    <div>
+      <div className="nav-bar">
+        <div className="menu-mobile" onClick={toggleMenu}>
+          <span className="menu-icon">
+            <FontAwesomeIcon icon={faBars} />
+          </span>
+        </div>
+        <Link to="/">
+          <img
+            src={process.env.PUBLIC_URL + "/car-service-logo.png"}
+            className="logo"
+          />
+        </Link>
+        <ul className="menu-links">
+          <Link to="/repairs">
+            <li>Ремонти</li>
+          </Link>
+          <Link to="/services">
+            <li>Сервизи</li>
+          </Link>
+          <Link to="/cars">
+            <li>Моите автомобили</li>
+          </Link>
+          <Link to="/documents">
+            <li>Документи</li>
+          </Link>
+          {userCntx.user ? (
+            <Link to="/profile">
+              <li>{userCntx.user.displayName}</li>
+            </Link>
+          ) : (
+            <Link to="/register">
+              <li>Регистрация</li>
+            </Link>
+          )}
+          {userCntx.user ? (
+            <li onClick={signOutHandler}>Изход</li>
+          ) : (
+            <Link to="/sign-in">
+              <li>Вход</li>
+            </Link>
+          )}
+        </ul>
+      </div>
+      <div className="menu-mobile-content">
         {menuOpen ? (
           <ul className="menu-links-mobile">
             <Link to="/repairs">
@@ -63,42 +103,6 @@ export const Navbar = () => {
           ""
         )}
       </div>
-      <Link to="/">
-        <img
-          src={process.env.PUBLIC_URL + "/car-service-logo.png"}
-          className="logo"
-        />
-      </Link>
-      <ul className="menu-links">
-        <Link to="/repairs">
-          <li>Ремонти</li>
-        </Link>
-        <Link to="/services">
-          <li>Сервизи</li>
-        </Link>
-        <Link to="/cars">
-          <li>Моите автомобили</li>
-        </Link>
-        <Link to="/documents">
-          <li>Документи</li>
-        </Link>
-        {userCntx.user ? (
-          <Link to="/profile">
-            <li>{userCntx.user.displayName}</li>
-          </Link>
-        ) : (
-          <Link to="/register">
-            <li>Регистрация</li>
-          </Link>
-        )}
-        {userCntx.user ? (
-          <li onClick={signOutHandler}>Изход</li>
-        ) : (
-          <Link to="/sign-in">
-            <li>Вход</li>
-          </Link>
-        )}
-      </ul>
     </div>
   );
 };
