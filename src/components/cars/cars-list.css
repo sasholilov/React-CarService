@@ -66,3 +66,54 @@ h1 {
   flex-direction: column;
   align-items: center;
 }
+@media screen and (max-width: 600px) {
+  .my-cars-list {
+    width: 92%;
+    margin: 0 auto 3rem auto;
+  }
+
+  .list-car-item {
+    overflow: hidden;
+    overflow-y: hidden;
+    border-radius: 1em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+    text-align: center;
+    height: auto;
+    margin-bottom: 1em;
+  }
+
+  .my-cars-list h3 {
+    padding-left: 1em;
+    padding-right: 1em;
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 0;
+  }
+  .list-car-item img {
+    display: block;
+    max-width: 22em;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    float: left;
+    margin-right: 20px;
+    object-fit: cover;
+  }
+
+  .cars-list-header {
+    margin: 1em auto 1em auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px dotted;
+    border-radius: 0.5em;
+    width: 91%;
+  }
+  .cars-list-header h1 {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .btn-update-car {
+    width: 90%;
+  }
+}
