@@ -94,3 +94,25 @@
 .document-card-footer button:last-child {
   background-color: rgb(212, 97, 97);
 }
+
+@media screen and (max-width: 800px) {
+  .header-docs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 0em;
+  }
+
+  .header-docs-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-right: 0em;
+  }
+  .documents-list {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 1fr;
+    margin: 1em 1em 0 1em;
+  }
+}

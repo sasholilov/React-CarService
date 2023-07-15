@@ -91,7 +91,7 @@
   margin-right: 1em; /* Add right margin to the amount title */
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .repair-item {
     display: flex;
     flex-direction: column;
@@ -109,7 +109,9 @@
     display: none;
   }
   .repair-item span {
-    margin-bottom: 1em;
+    margin-left: 0.15em;
+    margin-right: 0.15em;
+    margin-bottom: 0.55em;
   }
   .repairs-header {
     display: flex;

@@ -65,7 +65,7 @@ export const Profile = () => {
 
   return (
     <div>
-      <section className="container-form">
+      <div className="container-form-profile">
         {success ? (
           <span className="success-message">Успешно променени данни!</span>
         ) : (
@@ -87,7 +87,7 @@ export const Profile = () => {
           onChange={(e) => setNewEmail(e.target.value)}
         />
         <button onClick={updateProfileAction}>Промени</button>
-      </section>
+      </div>
     </div>
   );
 };

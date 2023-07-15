@@ -1,12 +1,15 @@
-.container-form {
+.container-form-profile {
+  width: 100vh;
+  height: auto;
   box-shadow: 0 1px 10px 1px #252e46;
-  margin: 4rem 30rem auto 30rem;
+  margin: 10em auto;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-.container-form p {
+.container-form-profile p {
   font-size: 16px;
   color: #252e46;
 }
@@ -39,4 +42,18 @@ button {
   font-size: 16px;
   box-sizing: border-box;
   margin: 1.5rem auto 1.5rem auto;
+}
+
+@media screen and (max-width: 800px) {
+  /* Adjust the width of the container form */
+  .container-form-profile {
+    width: 80%;
+    max-width: 400px;
+    margin-top: 1.5em;
+  }
+
+  /* Adjust the width of the input */
+  .container-form-profile input {
+    width: 80%;
+  }
 }
