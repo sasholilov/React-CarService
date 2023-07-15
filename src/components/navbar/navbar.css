@@ -43,7 +43,8 @@
 }
 @media screen and (max-width: 800px) {
   .nav-bar {
-    flex-direction: row;
+    flex-direction: row-reverse;
+    justify-content: space-around;
     height: auto;
     padding: 1em;
   }
@@ -51,6 +52,23 @@
   .nav-bar ul {
     flex-direction: column;
     margin: 0;
+  }
+
+  .menu-links {
+    display: none;
+  }
+
+  .menu-links-mobile {
+    background-color: aliceblue;
+  }
+  .menu-icon {
+    color: aliceblue;
+    font-size: 26px;
+  }
+
+  .menu-links-mobile li {
+    color: #252e46;
+    margin-left: -2em;
   }
 
   .nav-bar li {
