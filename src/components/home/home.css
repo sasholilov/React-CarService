@@ -1,8 +1,8 @@
 .home-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2em;
-  max-width: 800px;
+  grid-template-columns: 1fr;
+  gap: 1em;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -28,17 +28,51 @@
 
 /* Styles for the registered items section */
 .home-registered-items {
-  border: 1px solid;
-  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1em;
+  text-align: center;
 }
 
-.home-registered-items p {
-  margin-bottom: 5px;
+.home-registered-item {
+  border-radius: 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.title-registered-item {
+  color: rgb(94, 94, 94);
+  padding: 1em;
+  font-size: 14px;
+  margin: 0;
+}
+
+.blue {
+  background-color: aqua;
+}
+
+.orange {
+  background-color: rgb(247, 182, 62);
+}
+
+.green {
+  background-color: greenyellow;
+}
+
+.purple {
+  background-color: rgb(247, 168, 247);
+}
+
+.count-registered-item {
+  font-size: 38px;
+  color: #252e46;
+  margin-top: 0.2;
+  margin-bottom: 0.2em;
 }
 
 .home-recent-items {
-  margin-bottom: 20px;
-  border: 1px solid;
+  margin: 1em 0 1em 0;
+  border-radius: 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
 }
 
 .home-recent-items h3 {
@@ -47,8 +81,9 @@
 }
 
 .home-statistic {
-  margin-bottom: 20px;
-  border: 1px solid;
+  border-radius: 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  margin-bottom: 1em;
 }
 
 .home-statistic h3 {
@@ -57,8 +92,8 @@
 }
 
 .home-messages {
-  margin-bottom: 20px;
-  border: 1px solid;
+  border-radius: 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
 }
 
 .home-messages h3 {

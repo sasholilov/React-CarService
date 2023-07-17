@@ -3,6 +3,13 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../context/userContext";
 import { Link } from "react-router-dom";
 import { getDataFromFirestore } from "../../firebase-config";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCar,
+  faList,
+  faScrewdriverWrench,
+  faWarehouse,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const Home = () => {
   const curentUser = useContext(UserContext);
@@ -10,6 +17,9 @@ export const Home = () => {
   const [myDocs, setMyDocs] = useState([]);
   const [myServices, setMyServices] = useState([]);
   const [myRepairs, setMyRepairs] = useState([]);
+  const [choisedCar, setChoisedCar] = useState({});
+
+  console.log("Choised CAr", choisedCar);
 
   useEffect(() => {
     getDataFromFirestore()
@@ -23,6 +33,13 @@ export const Home = () => {
         console.log(error.message);
       });
   }, []);
+
+  const handleChoisedCar = (selectedCar) => {
+    const [carMake, carLicenseNumber] = selectedCar.split(" - ");
+    setChoisedCar((prev) =>
+      myCars.filter((car) => car.licenseNumber === carLicenseNumber)
+    );
+  };
 
   return (
     <div>
@@ -44,20 +61,45 @@ export const Home = () => {
           <h3>Сервизната книжка на {curentUser.user.displayName}</h3>
           <div className="home-container">
             <div className="home-registered-items">
-              <p>Регистрирани автомобили: {myCars.length}</p>
-              <p>Документи: {myDocs.length}</p>
-              <p>Записани сервизи: {myServices.length}</p>
-              <p>Извършени ремонти или обслужвания: {myServices.length}</p>
+              <section className="home-registered-item blue">
+                <p className="title-registered-item ">
+                  Регистрирани автомобили
+                </p>
+                <FontAwesomeIcon icon={faCar} />
+                <p className="count-registered-item">{myCars.length}</p>
+              </section>
+              <section className="home-registered-item orange">
+                <p className="title-registered-item ">Документи</p>
+                <FontAwesomeIcon icon={faList} />
+                <p className="count-registered-item">{myDocs.length}</p>
+              </section>
+              <section className="home-registered-item green">
+                <p className="title-registered-item ">Записани сервизи</p>
+                <FontAwesomeIcon icon={faWarehouse} />
+                <p className="count-registered-item">{myServices.length}</p>
+              </section>
+              <section className="home-registered-item purple">
+                <p className="title-registered-item">Ремонти и обслужвания</p>
+                <FontAwesomeIcon icon={faScrewdriverWrench} />
+                <p className="count-registered-item">{myServices.length}</p>
+              </section>
             </div>
             <div className="home-recent-items">
-              <h3>Наскоро добавени</h3>
+              <h3>Статистика на разходите</h3>
+              <select onClick={(e) => handleChoisedCar(e.target.value)}>
+                {myCars.map((c) => (
+                  <option>
+                    {c.make} - {c.licenseNumber}
+                  </option>
+                ))}
+              </select>
               <p>Запис 1</p>
               <p>Запис 2</p>
               <p>Запис 3</p>
               <p>Запис 4</p>
             </div>
             <div className="home-statistic">
-              <h3>Статистика</h3>
+              <h3>Последно добавени</h3>
               <p>Запис 1</p>
               <p>Запис 2</p>
               <p>Запис 3</p>
@@ -65,7 +107,7 @@ export const Home = () => {
             </div>
             <div className="home-messages">
               <h3>Съобщения</h3>
-              <p>Запис 1</p>
+              <p>Нямате нови съобщения</p>
             </div>
           </div>
         </div>
