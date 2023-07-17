@@ -18,6 +18,7 @@ export const Home = () => {
   const [myServices, setMyServices] = useState([]);
   const [myRepairs, setMyRepairs] = useState([]);
   const [choisedCar, setChoisedCar] = useState({});
+  const [displayedAmount, setDisplayedAmount] = useState(0);
 
   console.log("Choised CAr", choisedCar);
 
@@ -34,6 +35,21 @@ export const Home = () => {
         console.log(error.message);
       });
   }, []);
+
+  useEffect(() => {
+    const finalAmount = calculateAmount(choisedCar);
+    let currentAmount = 0;
+    const interval = setInterval(() => {
+      currentAmount += Math.ceil((finalAmount - currentAmount) / 10); // Increment by 1/10th of the remaining difference
+      setDisplayedAmount(currentAmount);
+      if (currentAmount >= finalAmount) {
+        clearInterval(interval); // Stop the interval when the final amount is reached
+      }
+    }, 15); // Update every 100 milliseconds
+    return () => {
+      clearInterval(interval); // Cleanup the interval on component unmount
+    };
+  }, [choisedCar]);
 
   const handleChoisedCar = (selectedCar) => {
     const [carMake, carLicenseNumber] = selectedCar.split(" - ");
@@ -110,9 +126,7 @@ export const Home = () => {
                   </option>
                 ))}
               </select>
-              <p className="count-registered-item">
-                {calculateAmount(choisedCar)}лв
-              </p>
+              <p className="total-amount">{displayedAmount}лв</p>
             </div>
             <div className="home-recent-items">
               <h3>Последно добавени</h3>
