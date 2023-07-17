@@ -28,6 +28,7 @@ export const Home = () => {
         setMyDocs(data.documents);
         setMyServices(data.services);
         setMyRepairs(data.repairs);
+        setChoisedCar(data.cars[0]);
       })
       .catch((error) => {
         console.log(error.message);
@@ -36,9 +37,25 @@ export const Home = () => {
 
   const handleChoisedCar = (selectedCar) => {
     const [carMake, carLicenseNumber] = selectedCar.split(" - ");
-    setChoisedCar((prev) =>
-      myCars.filter((car) => car.licenseNumber === carLicenseNumber)
+    const selectedCarObj = myCars.find(
+      (car) => car.licenseNumber === carLicenseNumber
     );
+    setChoisedCar(selectedCarObj);
+  };
+
+  const calculateAmount = (carObj) => {
+    const { licenseNumber } = carObj;
+
+    const repairsForCar = myRepairs.filter((repair) =>
+      repair.forCar.includes(licenseNumber)
+    );
+
+    const totalAmount = repairsForCar.reduce(
+      (acc, repair) => acc + Number(repair.amount),
+      0
+    );
+    console.log(totalAmount);
+    return totalAmount;
   };
 
   return (
@@ -84,21 +101,20 @@ export const Home = () => {
                 <p className="count-registered-item">{myServices.length}</p>
               </section>
             </div>
-            <div className="home-recent-items">
+            <div className="home-statistic">
               <h3>Статистика на разходите</h3>
               <select onClick={(e) => handleChoisedCar(e.target.value)}>
-                {myCars.map((c) => (
-                  <option>
+                {myCars.map((c, i) => (
+                  <option key={i}>
                     {c.make} - {c.licenseNumber}
                   </option>
                 ))}
               </select>
-              <p>Запис 1</p>
-              <p>Запис 2</p>
-              <p>Запис 3</p>
-              <p>Запис 4</p>
+              <p className="count-registered-item">
+                {calculateAmount(choisedCar)}лв
+              </p>
             </div>
-            <div className="home-statistic">
+            <div className="home-recent-items">
               <h3>Последно добавени</h3>
               <p>Запис 1</p>
               <p>Запис 2</p>

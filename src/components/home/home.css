@@ -75,15 +75,48 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
 }
 
+.home-statistic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  margin-bottom: 1em;
+}
 .home-recent-items h3 {
   font-size: 20px;
   margin-bottom: 10px;
 }
 
-.home-statistic {
-  border-radius: 1em;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
-  margin-bottom: 1em;
+.home-statistic select {
+  appearance: none; /* Removes default arrow icon */
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 200px;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+}
+.home-statistic option {
+  padding: 8px 16px; /* Padding inside the option */
+  font-size: 16px; /* Font size */
+}
+
+select::-ms-expand {
+  display: none; /* Hide the default arrow on Internet Explorer */
+}
+
+select::after {
+  content: "\25BC"; /* Unicode arrow-down character */
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #ffffff; /* Color of the arrow */
 }
 
 .home-statistic h3 {
