@@ -24,7 +24,10 @@ h1 {
 
 .list-car-item img {
   display: block;
-  max-width: 24em;
+  width: 26em;
+  max-width: 26em;
+  height: 15em;
+  max-height: 15em;
   border-top-right-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
   float: left;

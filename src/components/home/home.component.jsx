@@ -1,4 +1,5 @@
 import "./home.css";
+import { Loading } from "../loading/loading.component";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../context/userContext";
 import { Link } from "react-router-dom";
@@ -27,7 +28,7 @@ export const Home = () => {
         setMyDocs(data.documents);
         setMyServices(data.services);
         setMyRepairs(data.repairs);
-        setChoisedCar(data.cars[0]);
+        setChoisedCar(data.cars[0] ? data.cars[0] : 0);
       })
       .catch((error) => {
         console.log(error.message);
@@ -58,6 +59,9 @@ export const Home = () => {
   };
 
   const calculateAmount = (carObj) => {
+    if (!myCars || myCars.length === 0 || !myRepairs) {
+      return 0;
+    }
     const { licenseNumber } = carObj;
     const repairsForCar = myRepairs.filter((repair) =>
       repair.forCar.includes(licenseNumber)
@@ -73,10 +77,14 @@ export const Home = () => {
     <div>
       {curentUser.user === null ? (
         <div className="home-login-register">
-          <h3>
-            Моля влезте в профила си за да ползвате функционалността на сайта
+          <img
+            src={process.env.PUBLIC_URL + "/car-service-logo.png"}
+            className="logo"
+          />
+          <h2>
+            Моля, влезте в профила си за да ползвате функционалността на сайта
             или ако нямате такъв, направете регистрация!
-          </h3>
+          </h2>
           <Link to="/sign-in">
             <button>Вход</button>
           </Link>
@@ -94,9 +102,13 @@ export const Home = () => {
                   Регистрирани автомобили
                 </p>
                 <FontAwesomeIcon icon={faCar} />
-                <p className="count-registered-item">
-                  {myCars ? myCars.length : 0}
-                </p>
+                {myCars ? (
+                  <p className="count-registered-item">
+                    {myCars ? myCars.length : 0}
+                  </p>
+                ) : (
+                  <p className="count-registered-item">0</p>
+                )}
               </section>
               <section className="home-registered-item orange">
                 <p className="title-registered-item ">Документи</p>
@@ -122,25 +134,66 @@ export const Home = () => {
             </div>
             <div className="home-statistic">
               <h3>Статистика на разходите</h3>
-              <select onClick={(e) => handleChoisedCar(e.target.value)}>
-                {myCars.map((c, i) => (
-                  <option key={i}>
-                    {c.make} - {c.licenseNumber}
-                  </option>
-                ))}
-              </select>
+              {myCars ? (
+                <select onClick={(e) => handleChoisedCar(e.target.value)}>
+                  {myCars && myCars.length > 0 ? (
+                    myCars.map((c, i) => (
+                      <option key={i}>
+                        {c.make} - {c.licenseNumber}
+                      </option>
+                    ))
+                  ) : (
+                    <option>Нямате автомобили</option>
+                  )}
+                </select>
+              ) : (
+                <select>
+                  <option>Нямате автомобили</option>
+                </select>
+              )}
+
               <p className="total-amount">{displayedAmount}лв</p>
             </div>
+
             <div className="home-recent-items">
               <h3>Последно добавени</h3>
-              <p>Автомобил</p>
-              <p>Документ</p>
-              <p>Сервиз</p>
-              <p>Ремонт</p>
+              {myCars && myCars[myCars.length - 1] && (
+                <p>
+                  Автомобил:{" "}
+                  {`${myCars[myCars.length - 1].make} ${
+                    myCars[myCars.length - 1].model
+                  } ${myCars[myCars.length - 1].year} с регистрационен номер ${
+                    myCars[myCars.length - 1].licenseNumber
+                  }`}
+                </p>
+              )}
+              {myDocs && myDocs[myDocs.length - 1] && (
+                <p>
+                  Документ:{" "}
+                  {`${myDocs[myDocs.length - 1].documentType} за ${
+                    myDocs[myDocs.length - 1].forCar
+                  }`}
+                </p>
+              )}
+
+              {myServices && myServices[myServices.length - 1] && (
+                <p>
+                  Сервиз: {myServices[myServices.length - 1].nameOfService} в
+                  град {myServices[myServices.length - 1].city}
+                </p>
+              )}
+              {myRepairs && myRepairs[myRepairs.length - 1] && (
+                <p>
+                  Ремонт:{" "}
+                  {`${myRepairs[myRepairs.length - 1].typeOfRepair} на цена
+                  ${myRepairs[myRepairs.length - 1].amount}лв за автомобил
+                  ${myRepairs[myRepairs.length - 1].forCar}`}
+                </p>
+              )}
             </div>
             <div className="home-messages">
               <h3>Съобщения</h3>
-              <p>Нямате нови съобщения</p>
+              <p>Изтичаща винетка!</p>
             </div>
           </div>
         </div>

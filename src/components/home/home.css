@@ -9,12 +9,26 @@
 
 /* Styles for the login and registration section */
 .home-login-register {
+  margin-left: 14em;
+  margin-right: 14em;
   text-align: center;
-  margin-bottom: 20px;
+  display: block;
+  margin-top: 15vh;
+  border: 1px dotted;
+  border-radius: 0.25em;
+  padding: 4em 2em 4em 2em;
 }
 
-.home-login-register h3 {
-  font-size: 18px;
+.home-login-register img {
+  background-color: #252e46;
+  padding: 1em;
+  border-radius: 1em;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.home-login-register h2 {
+  color: #252e46;
   margin-bottom: 10px;
 }
 
@@ -32,6 +46,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 1em;
   text-align: center;
+  margin-bottom: 1em;
 }
 
 .home-registered-item {
@@ -68,11 +83,32 @@
   margin-top: 0.2;
   margin-bottom: 0.2em;
 }
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 .home-recent-items {
   margin: 1em 0 1em 0;
   border-radius: 1em;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  background-color: #252e46;
+}
+
+.home-recent-items p {
+  text-align: center;
+  color: white;
+}
+
+.home-recent-items h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 1em;
+  color: rgb(253, 253, 253);
 }
 
 .home-statistic {
@@ -81,7 +117,6 @@
   align-items: center;
   border-radius: 1em;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
-  margin-bottom: 1em;
   background-color: #252e46;
 }
 .home-recent-items h3 {
@@ -143,6 +178,15 @@ select::after {
 .home-messages h3 {
   font-size: 20px;
   margin-bottom: 10px;
+}
+
+.home-messages p {
+  text-align: center;
+  color: orange;
+  background-color: #252e46;
+  display: block;
+  padding: 1em;
+  border-radius: 1em;
 }
 
 @media screen and (max-width: 800px) {
