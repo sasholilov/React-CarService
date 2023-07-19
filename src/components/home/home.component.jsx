@@ -20,8 +20,6 @@ export const Home = () => {
   const [choisedCar, setChoisedCar] = useState({});
   const [displayedAmount, setDisplayedAmount] = useState(0);
 
-  console.log("Choised CAr", choisedCar);
-
   useEffect(() => {
     getDataFromFirestore()
       .then((data) => {
@@ -34,7 +32,7 @@ export const Home = () => {
       .catch((error) => {
         console.log(error.message);
       });
-  }, []);
+  }, [curentUser]);
 
   useEffect(() => {
     const finalAmount = calculateAmount(choisedCar);
@@ -45,7 +43,7 @@ export const Home = () => {
       if (currentAmount >= finalAmount) {
         clearInterval(interval); // Stop the interval when the final amount is reached
       }
-    }, 15); // Update every 100 milliseconds
+    }, 15); // Update every 15  milliseconds
     return () => {
       clearInterval(interval); // Cleanup the interval on component unmount
     };
@@ -70,7 +68,7 @@ export const Home = () => {
       (acc, repair) => acc + Number(repair.amount),
       0
     );
-    console.log(totalAmount);
+
     return totalAmount;
   };
 
@@ -99,22 +97,30 @@ export const Home = () => {
                   Регистрирани автомобили
                 </p>
                 <FontAwesomeIcon icon={faCar} />
-                <p className="count-registered-item">{myCars.length}</p>
+                <p className="count-registered-item">
+                  {myCars ? myCars.length : 0}
+                </p>
               </section>
               <section className="home-registered-item orange">
                 <p className="title-registered-item ">Документи</p>
                 <FontAwesomeIcon icon={faList} />
-                <p className="count-registered-item">{myDocs.length}</p>
+                <p className="count-registered-item">
+                  {myDocs ? myDocs.length : 0}
+                </p>
               </section>
               <section className="home-registered-item green">
                 <p className="title-registered-item ">Записани сервизи</p>
                 <FontAwesomeIcon icon={faWarehouse} />
-                <p className="count-registered-item">{myServices.length}</p>
+                <p className="count-registered-item">
+                  {myServices ? myServices.length : 0}
+                </p>
               </section>
               <section className="home-registered-item purple">
                 <p className="title-registered-item">Ремонти и обслужвания</p>
                 <FontAwesomeIcon icon={faScrewdriverWrench} />
-                <p className="count-registered-item">{myServices.length}</p>
+                <p className="count-registered-item">
+                  {myRepairs ? myRepairs.length : 0}
+                </p>
               </section>
             </div>
             <div className="home-statistic">
