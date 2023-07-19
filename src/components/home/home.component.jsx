@@ -59,16 +59,13 @@ export const Home = () => {
 
   const calculateAmount = (carObj) => {
     const { licenseNumber } = carObj;
-
     const repairsForCar = myRepairs.filter((repair) =>
       repair.forCar.includes(licenseNumber)
     );
-
     const totalAmount = repairsForCar.reduce(
       (acc, repair) => acc + Number(repair.amount),
       0
     );
-
     return totalAmount;
   };
 
@@ -136,10 +133,10 @@ export const Home = () => {
             </div>
             <div className="home-recent-items">
               <h3>Последно добавени</h3>
-              <p>Запис 1</p>
-              <p>Запис 2</p>
-              <p>Запис 3</p>
-              <p>Запис 4</p>
+              <p>Автомобил</p>
+              <p>Документ</p>
+              <p>Сервиз</p>
+              <p>Ремонт</p>
             </div>
             <div className="home-messages">
               <h3>Съобщения</h3>

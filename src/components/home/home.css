@@ -104,6 +104,7 @@
 .home-statistic option {
   padding: 8px 16px; /* Padding inside the option */
   font-size: 16px; /* Font size */
+  text-align: center;
 }
 
 select::-ms-expand {
