@@ -236,8 +236,9 @@ export const Home = () => {
               {displayMessage && displayMessage.length > 0 ? (
                 displayMessage.map((m) => (
                   <p>
-                    След {m.estimateDays} дни изтича {m.documentType} за{" "}
-                    {m.forCar}
+                    {m.estimateDays === 0
+                      ? `Днес изтича ${m.documentType} за автомобил ${m.forCar}`
+                      : `След ${m.estimateDays} дни изтича ${m.documentType} за автомобил ${m.forCar}`}
                   </p>
                 ))
               ) : (
