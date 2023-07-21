@@ -7,6 +7,7 @@ import UserContext from "../context/userContext";
 import { data } from "../../data";
 import { useNavigate } from "react-router-dom";
 import "./cars-update.css";
+import { Homenotloged } from "../home/homenotloged";
 
 export const CarsUpdate = () => {
   const currentUser = useContext(UserContext);
@@ -141,7 +142,7 @@ export const CarsUpdate = () => {
 
   if (!currentUser.user) {
     console.log("User not loaded yet.");
-    return <h1>Моля влезте в профила си!</h1>;
+    return <Homenotloged />;
   }
   console.log("User is loaded", currentUser.user.uid);
 

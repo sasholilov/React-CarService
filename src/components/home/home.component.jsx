@@ -1,8 +1,7 @@
 import "./home.css";
-import { Loading } from "../loading/loading.component";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../context/userContext";
-import { Link } from "react-router-dom";
+import { Homenotloged } from "./homenotloged";
 import { getDataFromFirestore } from "../../firebase-config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export const Home = () => {
-  const curentUser = useContext(UserContext);
+  const currentUser = useContext(UserContext);
   const [myCars, setMyCars] = useState([]);
   const [myDocs, setMyDocs] = useState([]);
   const [myServices, setMyServices] = useState([]);
@@ -33,7 +32,7 @@ export const Home = () => {
       .catch((error) => {
         console.log(error.message);
       });
-  }, [curentUser]);
+  }, [currentUser]);
 
   useEffect(() => {
     const finalAmount = calculateAmount(choisedCar);
@@ -75,26 +74,11 @@ export const Home = () => {
 
   return (
     <div>
-      {curentUser.user === null ? (
-        <div className="home-login-register">
-          <img
-            src={process.env.PUBLIC_URL + "/car-service-logo.png"}
-            className="logo"
-          />
-          <h2>
-            Моля, влезте в профила си за да ползвате функционалността на сайта
-            или ако нямате такъв, направете регистрация!
-          </h2>
-          <Link to="/sign-in">
-            <button>Вход</button>
-          </Link>
-          <Link to="/register">
-            <button>Регистрация</button>
-          </Link>
-        </div>
+      {currentUser.user === null ? (
+        <Homenotloged />
       ) : (
         <div>
-          <h3>Сервизната книжка на {curentUser.user.displayName}</h3>
+          <h3>Сервизната книжка на {currentUser.user.displayName}</h3>
           <div className="home-container">
             <div className="home-registered-items">
               <section className="home-registered-item blue">
@@ -157,39 +141,48 @@ export const Home = () => {
 
             <div className="home-recent-items">
               <h3>Последно добавени</h3>
-              {myCars && myCars[myCars.length - 1] && (
-                <p>
-                  Автомобил:{" "}
-                  {`${myCars[myCars.length - 1].make} ${
-                    myCars[myCars.length - 1].model
-                  } ${myCars[myCars.length - 1].year} с регистрационен номер ${
-                    myCars[myCars.length - 1].licenseNumber
-                  }`}
-                </p>
-              )}
-              {myDocs && myDocs[myDocs.length - 1] && (
-                <p>
-                  Документ:{" "}
-                  {`${myDocs[myDocs.length - 1].documentType} за ${
-                    myDocs[myDocs.length - 1].forCar
-                  }`}
-                </p>
-              )}
+              <div className="home-recent-item">
+                {myCars && myCars[myCars.length - 1] && (
+                  <div className="home-recent-item-detail">
+                    <p>Автомобил</p>
+                    <p>
+                      {`${myCars[myCars.length - 1].make} ${
+                        myCars[myCars.length - 1].model
+                      } ${
+                        myCars[myCars.length - 1].year
+                      } с регистрационен номер ${
+                        myCars[myCars.length - 1].licenseNumber
+                      }`}
+                    </p>
+                  </div>
+                )}
+                {myDocs && myDocs[myDocs.length - 1] && (
+                  <div className="home-recent-item-detail">
+                    <p>Документ</p>
+                    <p>{`${myDocs[myDocs.length - 1].documentType} за ${
+                      myDocs[myDocs.length - 1].forCar
+                    }`}</p>
+                  </div>
+                )}
 
-              {myServices && myServices[myServices.length - 1] && (
-                <p>
-                  Сервиз: {myServices[myServices.length - 1].nameOfService} в
-                  град {myServices[myServices.length - 1].city}
-                </p>
-              )}
-              {myRepairs && myRepairs[myRepairs.length - 1] && (
-                <p>
-                  Ремонт:{" "}
-                  {`${myRepairs[myRepairs.length - 1].typeOfRepair} на цена
+                {myServices && myServices[myServices.length - 1] && (
+                  <div className="home-recent-item-detail">
+                    <p>Сервиз</p>
+                    <p>
+                      {myServices[myServices.length - 1].nameOfService}в гр.{" "}
+                      {myServices[myServices.length - 1].city}
+                    </p>
+                  </div>
+                )}
+                {myRepairs && myRepairs[myRepairs.length - 1] && (
+                  <div className="home-recent-item-detail">
+                    <p>Ремонт</p>
+                    <p>{`${myRepairs[myRepairs.length - 1].typeOfRepair} на цена
                   ${myRepairs[myRepairs.length - 1].amount}лв за автомобил
-                  ${myRepairs[myRepairs.length - 1].forCar}`}
-                </p>
-              )}
+                  ${myRepairs[myRepairs.length - 1].forCar}`}</p>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="home-messages">
               <h3>Съобщения</h3>

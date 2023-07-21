@@ -5,6 +5,7 @@ import { getDataFromFirestore, db } from "../../firebase-config";
 import { updateDoc, collection, getDoc, doc } from "firebase/firestore";
 import UserContext from "../context/userContext";
 import { Buttons } from "../buttons/buttons.component";
+import { Homenotloged } from "../home/homenotloged";
 import "./documents.styles.css";
 
 export const Documents = () => {
@@ -61,54 +62,67 @@ export const Documents = () => {
   };
 
   return (
-    <>
-      {!modalOpen && !openUpdateModal && (
-        <div className="header-docs">
-          <h3>Моите документи</h3>
-          <div className="header-docs-right">
-            <h3>Добави нов</h3>
-            <Buttons buttonStyle={"add"} onPush={() => setModalOpen(true)} />
-          </div>
-        </div>
-      )}
-      {modalOpen && <ModalAddDocs setOpenModal={setModalOpen} />}
-      {openUpdateModal && (
-        <ModalUpdateDocs
-          setOpenUpdateModal={setOpenUpdateModal}
-          docToUpdate={currentDoc}
-        />
-      )}
-      {!modalOpen && !openUpdateModal && (
-        <div className="documents-list">
-          {myDocs?.map((docs, index) => (
-            <div className="document-card" key={index}>
-              <h3>{docs.documentType}</h3>
-              <p id="for-car">{docs.forCar}</p>
-              {isValidDocument(docs) ? (
-                <p className="active-doc">Активна</p>
-              ) : (
-                <p className="expire-doc">Изтекла</p>
-              )}
-              <p>
-                Платена на:
-                <span>
-                  {new Date(docs.validFrom).toLocaleDateString("bg-BG")}
-                </span>
-              </p>
-              <p>
-                Изтича на:
-                <span>
-                  {new Date(docs.expireDate).toLocaleDateString("bg-BG")}
-                </span>
-              </p>
-              <footer className="document-card-footer">
-                <button onClick={() => handleUpdateDoc(docs)}>Редакция</button>
-                <button onClick={() => handleDeleteDoc(docs)}>Изтрий</button>
-              </footer>
+    <div>
+      {currentUser.user === null ? (
+        <Homenotloged />
+      ) : (
+        <div>
+          {!modalOpen && !openUpdateModal && (
+            <div className="header-docs">
+              <h3>Моите документи</h3>
+              <div className="header-docs-right">
+                <h3>Добави нов</h3>
+                <Buttons
+                  buttonStyle={"add"}
+                  onPush={() => setModalOpen(true)}
+                />
+              </div>
             </div>
-          ))}
+          )}
+          {modalOpen && <ModalAddDocs setOpenModal={setModalOpen} />}
+          {openUpdateModal && (
+            <ModalUpdateDocs
+              setOpenUpdateModal={setOpenUpdateModal}
+              docToUpdate={currentDoc}
+            />
+          )}
+          {!modalOpen && !openUpdateModal && (
+            <div className="documents-list">
+              {myDocs?.map((docs, index) => (
+                <div className="document-card" key={index}>
+                  <h3>{docs.documentType}</h3>
+                  <p id="for-car">{docs.forCar}</p>
+                  {isValidDocument(docs) ? (
+                    <p className="active-doc">Активна</p>
+                  ) : (
+                    <p className="expire-doc">Изтекла</p>
+                  )}
+                  <p>
+                    Платена на:
+                    <span>
+                      {new Date(docs.validFrom).toLocaleDateString("bg-BG")}
+                    </span>
+                  </p>
+                  <p>
+                    Изтича на:
+                    <span>
+                      {new Date(docs.expireDate).toLocaleDateString("bg-BG")}
+                    </span>
+                  </p>
+                  <footer className="document-card-footer">
+                    <button onClick={() => handleUpdateDoc(docs)}>
+                      Редакция
+                    </button>
+                    <button onClick={() => handleDeleteDoc(docs)}>
+                      Изтрий
+                    </button>
+                  </footer>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
-    </>
+    </div>
   );
 };
