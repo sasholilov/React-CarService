@@ -53,7 +53,7 @@ export const Documents = () => {
     const currentDate = new Date();
     const expire = new Date(currentDoc.expireDate);
     const differenceInMs = expire - currentDate;
-    const differenceInDays = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
+    const differenceInDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
     console.log(expire);
     console.log(differenceInDays);
     if (differenceInDays > 0) {

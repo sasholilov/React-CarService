@@ -25,6 +25,8 @@ export const ModalUpdateDocs = ({ setOpenUpdateModal, docToUpdate }) => {
       });
   }, []);
 
+  console.log(docToUpdate, "as");
+
   const handleUpdateDoc = async () => {
     try {
       const userCollection = collection(db, "users");
@@ -35,13 +37,14 @@ export const ModalUpdateDocs = ({ setOpenUpdateModal, docToUpdate }) => {
         // User document exists, find the index of the car in the 'cars' array
         const docIndex = myDocs.findIndex((d) => d.id === docToUpdate.id);
         console.log(myDocs[0]);
-        console.log(docToUpdate);
+
         console.log("tuk e indexa", docIndex);
 
         if (docIndex !== -1) {
           // Car found in the array, update the car at the specified index
           const updatedDocs = [...myDocs];
           const updatedDoc = {
+            id: docToUpdate.id,
             documentType: choisedDoc,
             expireDate: expireDate,
             forCar: choisedCar,

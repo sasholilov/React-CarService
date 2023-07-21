@@ -19,6 +19,7 @@ export const Home = () => {
   const [myRepairs, setMyRepairs] = useState([]);
   const [choisedCar, setChoisedCar] = useState({});
   const [displayedAmount, setDisplayedAmount] = useState(0);
+  const [displayMessage, setDisplayMessage] = useState([]);
 
   useEffect(() => {
     getDataFromFirestore()
@@ -35,11 +36,17 @@ export const Home = () => {
   }, [currentUser]);
 
   useEffect(() => {
+    const messagesArray = generateMessage();
+    setDisplayMessage(messagesArray);
+  }, [myDocs]);
+
+  useEffect(() => {
     const finalAmount = calculateAmount(choisedCar);
     let currentAmount = 0;
     const interval = setInterval(() => {
       currentAmount += Math.ceil((finalAmount - currentAmount) / 10); // Increment by 1/10th of the remaining difference
       setDisplayedAmount(currentAmount);
+
       if (currentAmount >= finalAmount) {
         clearInterval(interval); // Stop the interval when the final amount is reached
       }
@@ -71,6 +78,31 @@ export const Home = () => {
     );
     return totalAmount;
   };
+
+  const generateMessage = () => {
+    if (!myDocs || myDocs.length === 0) {
+      return [];
+    }
+    const today = new Date();
+    const filteredDocs = myDocs.filter((doc) => {
+      const expireDate = new Date(doc.expireDate);
+      const timeDifferenceInMilliseconds =
+        (expireDate.getTime() - today.getTime()) / 1000 / 60 / 60 / 24;
+      return timeDifferenceInMilliseconds <= 3;
+    });
+
+    const newFilteredDocs = filteredDocs.map((doc) => {
+      const newExpireDate = new Date(doc.expireDate);
+      const estimateDays = Math.floor(
+        (newExpireDate.getTime() - today.getTime()) / 1000 / 60 / 60 / 24
+      );
+      return { ...doc, estimateDays };
+    });
+    return newFilteredDocs;
+  };
+
+  const messagesArray = generateMessage();
+  console.log("proverka tuk", displayMessage);
 
   return (
     <div>
@@ -185,8 +217,32 @@ export const Home = () => {
               </div>
             </div>
             <div className="home-messages">
-              <h3>Съобщения</h3>
-              <p>Изтичаща винетка!</p>
+              <div
+                className={
+                  displayMessage.length && displayMessage > 0
+                    ? ""
+                    : "messages-title"
+                }
+              >
+                <h3>Съобщения</h3>
+                <span
+                  className={
+                    displayMessage.length > 0 && displayMessage ? "" : "hidden"
+                  }
+                >
+                  {displayMessage.length}
+                </span>
+              </div>
+              {displayMessage && displayMessage.length > 0 ? (
+                displayMessage.map((m) => (
+                  <p>
+                    След {m.estimateDays} дни изтича {m.documentType} за{" "}
+                    {m.forCar}
+                  </p>
+                ))
+              ) : (
+                <p>Нямате нови съобщения</p>
+              )}
             </div>
           </div>
         </div>
