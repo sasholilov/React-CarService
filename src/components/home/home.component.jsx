@@ -1,4 +1,5 @@
 import "./home.css";
+import { DAYS_FOR_MESSAGE } from "../../config/config";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../context/userContext";
 import { Homenotloged } from "./homenotloged";
@@ -9,6 +10,8 @@ import {
   faList,
   faScrewdriverWrench,
   faWarehouse,
+  faChartSimple,
+  faDollar,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const Home = () => {
@@ -64,6 +67,13 @@ export const Home = () => {
     setChoisedCar(selectedCarObj);
   };
 
+  const displayCorrectSplledDay = (countDay) => {
+    if (countDay === 1) {
+      return "ден";
+    }
+    return "дни";
+  };
+
   const calculateAmount = (carObj) => {
     if (!myCars || myCars.length === 0 || !myRepairs) {
       return 0;
@@ -88,7 +98,7 @@ export const Home = () => {
       const expireDate = new Date(doc.expireDate);
       const timeDifferenceInMilliseconds =
         (expireDate.getTime() - today.getTime()) / 1000 / 60 / 60 / 24;
-      return timeDifferenceInMilliseconds <= 3;
+      return timeDifferenceInMilliseconds <= DAYS_FOR_MESSAGE;
     });
 
     const newFilteredDocs = filteredDocs.map((doc) => {
@@ -149,26 +159,33 @@ export const Home = () => {
               </section>
             </div>
             <div className="home-statistic">
-              <h3>Статистика на разходите</h3>
-              {myCars ? (
-                <select onClick={(e) => handleChoisedCar(e.target.value)}>
-                  {myCars && myCars.length > 0 ? (
-                    myCars.map((c, i) => (
-                      <option key={i}>
-                        {c.make} - {c.licenseNumber}
-                      </option>
-                    ))
-                  ) : (
+              <span className="stat-icons">
+                <FontAwesomeIcon icon={faChartSimple} />
+              </span>
+              <div className="home-statistic-items">
+                <h3>Статистика на разходите</h3>
+                {myCars ? (
+                  <select onClick={(e) => handleChoisedCar(e.target.value)}>
+                    {myCars && myCars.length > 0 ? (
+                      myCars.map((c, i) => (
+                        <option key={i}>
+                          {c.make} - {c.licenseNumber}
+                        </option>
+                      ))
+                    ) : (
+                      <option>Нямате автомобили</option>
+                    )}
+                  </select>
+                ) : (
+                  <select>
                     <option>Нямате автомобили</option>
-                  )}
-                </select>
-              ) : (
-                <select>
-                  <option>Нямате автомобили</option>
-                </select>
-              )}
-
-              <p className="total-amount">{displayedAmount}лв</p>
+                  </select>
+                )}
+                <p className="total-amount">{displayedAmount}лв</p>
+              </div>
+              <span className="stat-icons">
+                <FontAwesomeIcon icon={faScrewdriverWrench} />
+              </span>
             </div>
 
             <div className="home-recent-items">
@@ -238,7 +255,17 @@ export const Home = () => {
                   <p>
                     {m.estimateDays === 0
                       ? `Днес изтича ${m.documentType} за автомобил ${m.forCar}`
-                      : `След ${m.estimateDays} дни изтича ${m.documentType} за автомобил ${m.forCar}`}
+                      : m.estimateDays > 0
+                      ? `След ${m.estimateDays} ${displayCorrectSplledDay(
+                          m.estimateDays
+                        )} изтича ${m.documentType} за автомобил ${m.forCar}`
+                      : `Преди ${Math.abs(
+                          m.estimateDays
+                        )} ${displayCorrectSplledDay(
+                          Math.abs(m.estimateDays)
+                        )} е изтекла ${m.documentType} за автомобил ${
+                          m.forCar
+                        }`}
                   </p>
                 ))
               ) : (

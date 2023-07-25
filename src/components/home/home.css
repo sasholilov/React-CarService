@@ -110,15 +110,30 @@
   margin-bottom: 1em;
   color: 252e46;
 }
-
 .home-statistic {
+  display: flex;
+  flex-direction: row;
+  background-color: #252e46;
+  border-radius: 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.stat-icons {
+  color: white;
+  font-size: 10em;
+  margin: auto auto;
+  opacity: 0.1;
+}
+
+.home-statistic-items {
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 1em;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
-  background-color: #252e46;
 }
+
 .home-recent-items h3 {
   font-size: 20px;
   margin-bottom: 10px;
@@ -148,7 +163,7 @@
   color: white;
 }
 
-.home-statistic select {
+.home-statistic-items select {
   appearance: none; /* Removes default arrow icon */
   background-color: rgb(226, 226, 226);
   border: 1px solid #ccc;
@@ -160,7 +175,7 @@
   cursor: pointer;
   text-align: center;
 }
-.home-statistic option {
+.home-statistic-items option {
   padding: 8px 16px; /* Padding inside the option */
   font-size: 16px; /* Font size */
   text-align: center;
@@ -180,7 +195,7 @@ select::after {
   color: #ffffff; /* Color of the arrow */
 }
 
-.home-statistic h3 {
+.home-statistic-items h3 {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 1em;
@@ -188,8 +203,8 @@ select::after {
 }
 
 .total-amount {
-  font-size: 48px;
-  font-weight: 600;
+  font-size: 4em;
+  font-weight: bold;
   color: rgb(255, 255, 255);
   transition: color 2s, font-size 5s;
 }
@@ -212,13 +227,8 @@ select::after {
   display: block;
   padding: 1em;
   border-radius: 1em;
-}
-
-@media screen and (max-width: 800px) {
-  /* Adjust the width of the container form */
-  .home-login-register {
-    margin: 10em 1em;
-  }
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 /* Adjust the width of the input */
@@ -266,4 +276,32 @@ select::after {
 
 .hidden {
   display: none;
+}
+
+@media screen and (max-width: 800px) {
+  /* Adjust the width of the container form */
+  .home-login-register {
+    margin: 10em 1em;
+  }
+
+  .home-registered-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1em;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+  .home-statistic {
+    display: flex;
+    flex-direction: column;
+    background-color: #252e46;
+  }
+
+  .home-recent-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
 }
