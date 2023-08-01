@@ -53,7 +53,7 @@ export const Register = () => {
         }
       }
     } else {
-      alert("Паролата не съвпада");
+      setErrorMessage("Паролата не съвпада");
     }
   };
 
@@ -69,9 +69,9 @@ export const Register = () => {
 
   return (
     <div>
-      <h1>{errorMessage}</h1>
       <section className="container-form-register">
         <p>Създай нова регистрация</p>
+        {errorMessage && <p>{errorMessage}</p>}
         <input type="text" placeholder="Име" onChange={handleNameOnChange} />
         <input
           type="text"
