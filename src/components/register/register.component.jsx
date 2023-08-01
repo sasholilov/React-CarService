@@ -11,6 +11,7 @@ export const Register = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerConfirmPassword, setRegisterConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -47,7 +48,9 @@ export const Register = () => {
         await updateDisplayName(user, name, lastName);
         navigate("/");
       } catch (error) {
-        console.log(error.message);
+        if (error.code === "auth/email-already-in-use") {
+          setErrorMessage("Потребителят съществува");
+        }
       }
     } else {
       alert("Паролата не съвпада");
@@ -66,6 +69,7 @@ export const Register = () => {
 
   return (
     <div>
+      <h1>{errorMessage}</h1>
       <section className="container-form-register">
         <p>Създай нова регистрация</p>
         <input type="text" placeholder="Име" onChange={handleNameOnChange} />
