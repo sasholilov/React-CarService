@@ -20,6 +20,7 @@ export const Navbar = () => {
 
   const signOutHandler = async () => {
     await signOut(auth);
+    toggleMenu();
     navigate("/");
   };
 
@@ -72,34 +73,52 @@ export const Navbar = () => {
         {menuOpen ? (
           <div className="menu-links-mobile">
             <Link to="/repairs" onClick={() => setActiveMenu("repairs")}>
-              <span className={activeMenu === "repairs" ? "active" : ""}>
+              <span
+                onClick={toggleMenu}
+                className={activeMenu === "repairs" ? "active" : ""}
+              >
                 Ремонти
               </span>
             </Link>
             <Link to="/services" onClick={() => setActiveMenu("services")}>
-              <span className={activeMenu === "services" ? "active" : ""}>
+              <span
+                onClick={toggleMenu}
+                className={activeMenu === "services" ? "active" : ""}
+              >
                 Сервизи
               </span>
             </Link>
             <Link to="/cars" onClick={() => setActiveMenu("cars")}>
-              <span className={activeMenu === "cars" ? "active" : ""}>
+              <span
+                onClick={toggleMenu}
+                className={activeMenu === "cars" ? "active" : ""}
+              >
                 Моите автомобили
               </span>
             </Link>
             <Link to="/documents" onClick={() => setActiveMenu("documents")}>
-              <span className={activeMenu === "documents" ? "active" : ""}>
+              <span
+                onClick={toggleMenu}
+                className={activeMenu === "documents" ? "active" : ""}
+              >
                 Документи
               </span>
             </Link>
             {userCntx.user ? (
               <Link to="/profile" onClick={() => setActiveMenu("profile")}>
-                <span className={activeMenu === "profile" ? "active" : ""}>
+                <span
+                  onClick={toggleMenu}
+                  className={activeMenu === "profile" ? "active" : ""}
+                >
                   {userCntx.user.displayName}
                 </span>
               </Link>
             ) : (
               <Link to="/register" onClick={() => setActiveMenu("register")}>
-                <span className={activeMenu === "register" ? "active" : ""}>
+                <span
+                  onClick={toggleMenu}
+                  className={activeMenu === "register" ? "active" : ""}
+                >
                   Регистрация
                 </span>
               </Link>
@@ -108,7 +127,10 @@ export const Navbar = () => {
               <span onClick={signOutHandler}>Изход</span>
             ) : (
               <Link to="/sign-in" onClick={() => setActiveMenu("sign-in")}>
-                <span className={activeMenu === "sign-in" ? "active" : ""}>
+                <span
+                  onClick={toggleMenu}
+                  className={activeMenu === "sign-in" ? "active" : ""}
+                >
                   Вход
                 </span>
               </Link>
