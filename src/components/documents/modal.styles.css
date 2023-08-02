@@ -30,6 +30,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .modalContainer input {
   margin: 1em 2em 0em 1.7em;
 }
@@ -110,28 +111,26 @@
 
   /* Adjust the margin of the labels */
   .modal-body label {
-    margin: 1em 1em -1em 1em;
+    margin: 0.5em 0.5em -0.5em 1em;
   }
 
   .modalBackground {
-    width: 100vw;
-    height: 100vh;
-    background-color: rgb(255, 255, 255);
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: -260px;
+    display: block;
+    width: 100%;
+    margin-left: 1em;
+    position: absolute;
   }
+
   .modalContainer {
-    max-width: 500px;
-    height: 600px;
-    border-radius: 12px;
-    background-color: white;
-    box-shadow: 0 1px 10px 1px #252e46;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 10px;
+  }
+
+  .modalContainer .footer {
+    margin-bottom: 0;
+  }
+  .modalContainer input {
+    margin: 0.75em 1.75em 0em 0.75em;
+    padding: 0.5em 0 0.5em 0;
+    width: 90%;
   }
 }
