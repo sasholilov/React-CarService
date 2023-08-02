@@ -4,6 +4,7 @@ import "./register.css";
 import { auth } from "../../firebase-config";
 import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { getErrorMessage } from "../../config/errorMessages";
 
 export const Register = () => {
   const [name, setName] = useState("");
@@ -36,24 +37,33 @@ export const Register = () => {
   };
 
   const createUser = async () => {
-    if (registerPassword === registerConfirmPassword) {
-      try {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          registerEmail,
-          registerPassword
-        );
+    if (!name) {
+      setErrorMessage("Моля въведете име!");
+      return;
+    }
+    if (!lastName) {
+      setErrorMessage("Моля въведете фамилия!");
+      return;
+    }
+    if (registerPassword != registerConfirmPassword) {
+      setErrorMessage("Паролата не съвпада!");
+      return;
+    }
 
-        const user = userCredential.user;
-        await updateDisplayName(user, name, lastName);
-        navigate("/");
-      } catch (error) {
-        if (error.code === "auth/email-already-in-use") {
-          setErrorMessage("Потребителят съществува");
-        }
-      }
-    } else {
-      setErrorMessage("Паролата не съвпада");
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
+
+      const user = userCredential.user;
+      await updateDisplayName(user, name, lastName);
+      navigate("/");
+    } catch (error) {
+      const errorMsg = getErrorMessage(error);
+      console.log(errorMsg);
+      setErrorMessage(errorMsg);
     }
   };
 
@@ -71,7 +81,7 @@ export const Register = () => {
     <div>
       <section className="container-form-register">
         <p>Създай нова регистрация</p>
-        {errorMessage && <p>{errorMessage}</p>}
+        {errorMessage && <span className="error-message">{errorMessage}</span>}
         <input type="text" placeholder="Име" onChange={handleNameOnChange} />
         <input
           type="text"

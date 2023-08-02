@@ -40,6 +40,13 @@
   cursor: pointer;
   font-size: 16px;
 }
+.error-message {
+  background-color: #252e46;
+  padding: 0.5em 1em 0.5em 1em;
+  border-radius: 1em;
+  color: orange;
+  font-size: 22px;
+}
 
 /* Responsive styles for smaller screen sizes */
 @media screen and (max-width: 800px) {

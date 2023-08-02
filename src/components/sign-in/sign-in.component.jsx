@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../../firebase-config";
+import { getErrorMessage } from "../../config/errorMessages";
 import "./sign-in.css";
 
 export const SignIn = () => {
@@ -21,6 +22,8 @@ export const SignIn = () => {
 
   const [signInEmail, setSignInEmail] = useState("");
   const [singInPassword, setSingInPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const signInEmailHandler = (event) => {
     setSignInEmail(event.target.value);
   };
@@ -28,15 +31,22 @@ export const SignIn = () => {
     setSingInPassword(event.target.value);
   };
 
-  const signInHandler = function () {
-    signIn(signInEmail, singInPassword);
-    navigate("/");
+  const signInHandler = async () => {
+    const error = await signIn(signInEmail, singInPassword);
+    if (error) {
+      const errorMsg = getErrorMessage(error);
+      setErrorMessage(errorMsg);
+    } else {
+      setErrorMessage("");
+      navigate("/");
+    }
   };
 
   return (
     <div>
       <div className="container-form-sign-in">
         <p>Влез в профила си</p>
+        {errorMessage && <span className="error-message">{errorMessage}</span>}
         <input type="email" placeholder="Email" onChange={signInEmailHandler} />
         <input
           type="password"

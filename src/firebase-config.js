@@ -28,9 +28,10 @@ export const signIn = async (signInEmail, singInPassword) => {
       signInEmail,
       singInPassword
     );
-    console.log(userCredential);
+    return null;
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
+    return error;
   }
 };
 
