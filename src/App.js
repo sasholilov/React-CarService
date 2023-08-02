@@ -15,7 +15,7 @@ import { CarsUpdate } from "./components/cars/cars-update.component";
 
 function App() {
   return (
-    <div>
+    <div id="app-container">
       <UserProvider>
         <Navbar />
         <Routes>
@@ -29,7 +29,12 @@ function App() {
           <Route path="/cars/carsupdate" element={<CarsUpdate />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
-        <Footer />
+        <div id="main-content">
+          <Outlet />
+        </div>
+        <div className="footer">
+          <Footer />
+        </div>
       </UserProvider>
     </div>
   );

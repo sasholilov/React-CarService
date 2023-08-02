@@ -5,16 +5,16 @@ h1 {
 }
 .container-form-cars {
   box-shadow: 0 1px 10px 1px #252e46;
-  margin: 2rem 10rem;
+  margin: 2em 20em;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .container-form-cars select {
-  margin: 1.4em auto;
+  margin: 2em 0.97em;
   padding: 0.4rem 4.2rem 0.4rem 4.2rem;
   text-align: center;
 }

@@ -85,7 +85,7 @@
   }
   .menu-icon {
     color: aliceblue;
-    font-size: 26px;
+    font-size: 36px;
   }
 
   .menu-links-mobile span {
@@ -119,5 +119,6 @@
 
   .logo {
     margin: 1rem auto;
+    max-width: 10rem;
   }
 }

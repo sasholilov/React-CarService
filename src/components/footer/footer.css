@@ -1,10 +1,15 @@
 .footer {
+  background-color: aliceblue;
+  padding: 1em;
   color: #252e46;
   display: flex;
-  left: 0;
-  bottom: 0;
-  width: 100%;
   align-items: center;
   justify-content: center;
-  margin-top: 1em;
+  width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .footer {
+    margin-top: 1em;
+  }
 }
