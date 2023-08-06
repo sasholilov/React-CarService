@@ -8,6 +8,7 @@ import { data } from "../../data";
 import { useNavigate } from "react-router-dom";
 import "./cars-update.css";
 import { Homenotloged } from "../home/homenotloged";
+import { addDataToFirestore } from "../../firebase-config";
 
 export const CarsUpdate = () => {
   const currentUser = useContext(UserContext);
@@ -146,7 +147,7 @@ export const CarsUpdate = () => {
   }
   console.log("User is loaded", currentUser.user.uid);
 
-  const addDataToFirestore = async (data) => {
+  const addDataHandler = async (data) => {
     const extendChoisedCar = {
       ...choisedCar,
       licenseNumber: "",
@@ -157,28 +158,10 @@ export const CarsUpdate = () => {
       carImgUrl:
         "https://boodabike.com/wp-content/uploads/2023/03/no-image.jpg",
     };
-    try {
-      const userCollection = collection(db, "users");
-      const userDocRef = doc(userCollection, currentUser.user.uid);
-      const userDocSnap = await getDoc(userDocRef);
 
-      if (userDocSnap.exists()) {
-        // User document exists, update the 'cars' array field
-        await updateDoc(userDocRef, {
-          cars: arrayUnion(extendChoisedCar),
-        });
-      } else {
-        // User document doesn't exist, create a new document
-        await setDoc(userDocRef, {
-          cars: [extendChoisedCar],
-        });
-      }
-
-      setAddet(true);
-      console.log("Success added");
-    } catch (error) {
-      console.log(error.message);
-    }
+    const typeData = "cars";
+    addDataToFirestore(extendChoisedCar, typeData);
+    setAddet(true);
   };
 
   return (
@@ -223,7 +206,7 @@ export const CarsUpdate = () => {
             </option>
           ))}
         </select>
-        <button onClick={() => addDataToFirestore(choisedCar)}>
+        <button onClick={() => addDataHandler(choisedCar)}>
           Добави автомобил
         </button>
       </section>
