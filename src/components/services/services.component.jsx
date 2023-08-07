@@ -133,7 +133,7 @@ export const Services = () => {
                 ))}
             </div>
             {openModal ? null : (
-              <MapContainer center={center} zoom={13} ref={mapRef}>
+              <MapContainer center={center} zoom={12} ref={mapRef}>
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

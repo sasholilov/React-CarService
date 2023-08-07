@@ -8,6 +8,7 @@ import UserContext from "../context/userContext";
 import { Loading } from "../loading/loading.component";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import { Icon } from "leaflet";
+import { addDataToFirestore } from "../../firebase-config";
 
 import "leaflet/dist/leaflet.css";
 import "./modalServices.style.css";
@@ -56,7 +57,7 @@ export const ModalAddService = ({ setOpenModal }) => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   });
 
-  const addServiceToFirestore = async () => {
+  const handleAddService = async () => {
     const service = {
       nameOfService: nameOfService,
       city: city,
@@ -64,28 +65,9 @@ export const ModalAddService = ({ setOpenModal }) => {
       telephone: telephone,
       coordinates: coordinates,
     };
-    try {
-      const userCollection = collection(db, "users");
-      const userDocRef = doc(userCollection, currentUser.user.uid);
-      const userDocSnap = await getDoc(userDocRef);
-
-      if (userDocSnap.exists()) {
-        // User document exists, update the 'cars' array field
-        await updateDoc(userDocRef, {
-          services: arrayUnion(service),
-        });
-      } else {
-        // User document doesn't exist, create a new document
-        await setDoc(userDocRef, {
-          services: [service],
-        });
-      }
-
-      setOpenModal(false);
-      console.log("Success added");
-    } catch (error) {
-      console.log(error.message);
-    }
+    const typeData = "services";
+    await addDataToFirestore(service, typeData);
+    setOpenModal(false);
   };
 
   console.log("center", center);
@@ -123,7 +105,7 @@ export const ModalAddService = ({ setOpenModal }) => {
           >
             Откажи
           </button>
-          <button onClick={addServiceToFirestore}>Добави</button>
+          <button onClick={handleAddService}>Добави</button>
         </div>
       </div>
       <MapContainer

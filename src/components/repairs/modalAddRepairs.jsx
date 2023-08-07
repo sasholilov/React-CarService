@@ -3,6 +3,7 @@ import { db, getDataFromFirestore } from "../../firebase-config";
 import { collection, updateDoc, arrayUnion } from "firebase/firestore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import UserContext from "../context/userContext";
+import { addDataToFirestore } from "../../firebase-config";
 
 export const ModalAddRepairs = ({ setOpenModal }) => {
   const [choisedCar, setChoisedCar] = useState("");
@@ -37,7 +38,7 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
       });
   }, []);
 
-  const addRepairToFirestore = async () => {
+  const handleAddRepair = async () => {
     const repair = {
       id: uuidv4(),
       forCar: choisedCar,
@@ -46,28 +47,9 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
       amount: amount,
       onDate: onDate,
     };
-    try {
-      const userCollection = collection(db, "users");
-      const userDocRef = doc(userCollection, currentUser.user.uid);
-      const userDocSnap = await getDoc(userDocRef);
-
-      if (userDocSnap.exists()) {
-        // User document exists, update the 'cars' array field
-        await updateDoc(userDocRef, {
-          repairs: arrayUnion(repair),
-        });
-      } else {
-        // User document doesn't exist, create a new document
-        await setDoc(userDocRef, {
-          repairs: [repair],
-        });
-      }
-
-      setOpenModal(false);
-      console.log("Success added");
-    } catch (error) {
-      console.log(error.message);
-    }
+    const typeData = "repairs";
+    await addDataToFirestore(repair, typeData);
+    setOpenModal(false);
   };
 
   return (
@@ -126,7 +108,7 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
           >
             Откажи
           </button>
-          <button onClick={addRepairToFirestore}>Добави</button>
+          <button onClick={handleAddRepair}>Добави</button>
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@ export const Documents = () => {
   useEffect(() => {
     getDataFromFirestore()
       .then((data) => {
-        setMyDocs(data.documents); // Set the fetched cars in the myCars state
+        setMyDocs(data.documents);
       })
       .catch((error) => {
         console.log(error.message);

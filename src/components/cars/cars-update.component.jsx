@@ -147,7 +147,7 @@ export const CarsUpdate = () => {
   }
   console.log("User is loaded", currentUser.user.uid);
 
-  const addDataHandler = async (data) => {
+  const handleAddCar = async (data) => {
     const extendChoisedCar = {
       ...choisedCar,
       licenseNumber: "",
@@ -206,7 +206,7 @@ export const CarsUpdate = () => {
             </option>
           ))}
         </select>
-        <button onClick={() => addDataHandler(choisedCar)}>
+        <button onClick={() => handleAddCar(choisedCar)}>
           Добави автомобил
         </button>
       </section>
