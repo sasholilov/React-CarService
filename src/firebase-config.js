@@ -87,3 +87,36 @@ export const getDataFromFirestore = async () => {
     console.log(error.message);
   }
 };
+
+export const updateDataInFirestore = async (
+  dataArrayName,
+  dataDoc,
+  dataType
+) => {
+  try {
+    const userCollection = collection(db, "users");
+    const userDocRef = doc(userCollection, auth.currentUser.uid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      const docIndex = dataArrayName.findIndex((d) => d.id === dataDoc.id);
+
+      if (docIndex !== -1) {
+        const updatedData = [...dataArrayName];
+        updatedData[docIndex] = dataDoc;
+
+        const updateObject = {
+          [dataType]: updatedData,
+        };
+
+        await updateDoc(userDocRef, updateObject);
+
+        console.log("Document updated successfully!");
+
+        return updatedData;
+      }
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};

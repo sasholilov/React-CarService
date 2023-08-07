@@ -23,7 +23,7 @@ export const Documents = () => {
       .catch((error) => {
         console.log(error.message);
       });
-  }, [modalOpen, openUpdateModal]);
+  }, [modalOpen, openUpdateModal, currentDoc]);
 
   const handleDeleteDoc = async (docs) => {
     try {
@@ -54,8 +54,6 @@ export const Documents = () => {
     const expire = new Date(currentDoc.expireDate);
     const differenceInMs = expire - currentDate;
     const differenceInDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
-    console.log(expire);
-    console.log(differenceInDays);
     if (differenceInDays > 0) {
       return true;
     } else return false;

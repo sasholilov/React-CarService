@@ -8,7 +8,11 @@ import { data } from "../../data";
 import { useNavigate } from "react-router-dom";
 import "./cars-update.css";
 import { Homenotloged } from "../home/homenotloged";
-import { addDataToFirestore } from "../../firebase-config";
+import {
+  addDataToFirestore,
+  updateDataInFirestore,
+} from "../../firebase-config";
+const { v4: uuidv4 } = require("uuid");
 
 export const CarsUpdate = () => {
   const currentUser = useContext(UserContext);
@@ -101,44 +105,30 @@ export const CarsUpdate = () => {
   };
 
   const handleUpdateCar = async (car, i) => {
-    try {
-      const userCollection = collection(db, "users");
-      const userDocRef = doc(userCollection, currentUser.user.uid);
-      const userDocSnap = await getDoc(userDocRef);
+    const updatedCar = {
+      id: myCars[i].id,
+      licenseNumber: myCars[i].licenseNumber,
+      engine: myCars[i].engine,
+      exactYear: myCars[i].exactYear,
+      odometer: myCars[i].odometer,
+      horsePower: myCars[i].horsePower,
+      make: myCars[i].make,
+      model: myCars[i].model,
+      year: myCars[i].year,
+      carImgUrl: myCars[i].carImgUrl,
+    };
 
-      if (userDocSnap.exists()) {
-        // User document exists, find the index of the car in the 'cars' array
-        const carIndex = myCars.findIndex((c) => c === car);
+    const dataType = "cars";
+    const updatedCars = await updateDataInFirestore(
+      myCars,
+      updatedCar,
+      dataType
+    );
 
-        if (carIndex !== -1) {
-          // Car found in the array, update the car at the specified index
-          const updatedCars = [...myCars];
-          const updatedCar = {
-            licenseNumber: myCars[i].licenseNumber,
-            engine: myCars[i].engine,
-            exactYear: myCars[i].exactYear,
-            odometer: myCars[i].odometer,
-            horsePower: myCars[i].horsePower,
-            make: myCars[i].make,
-            model: myCars[i].model,
-            year: myCars[i].year,
-            carImgUrl: myCars[i].carImgUrl,
-          };
-          updatedCars[carIndex] = updatedCar; // Replace 'updatedCar' with the updated car object
-
-          await updateDoc(userDocRef, {
-            cars: updatedCars,
-          });
-
-          setMycars(updatedCars);
-          setAddet(true);
-          console.log("Car updated successfully!");
-          navigate("/cars");
-        }
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+    setMycars(updatedCars);
+    setAddet(true);
+    console.log("Car updated successfully!");
+    navigate("/cars");
   };
 
   if (!currentUser.user) {
@@ -150,6 +140,7 @@ export const CarsUpdate = () => {
   const handleAddCar = async (data) => {
     const extendChoisedCar = {
       ...choisedCar,
+      id: uuidv4(),
       licenseNumber: "",
       exactYear: "",
       odometer: "",

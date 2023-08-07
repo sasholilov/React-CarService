@@ -4,6 +4,7 @@ import { db, getDataFromFirestore } from "../../firebase-config";
 import { collection, updateDoc, arrayUnion } from "firebase/firestore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import UserContext from "../context/userContext";
+import { updateDataInFirestore } from "../../firebase-config";
 
 export const ModalUpdateDocs = ({ setOpenUpdateModal, docToUpdate }) => {
   const [myCars, setMycars] = useState([]);
@@ -28,42 +29,23 @@ export const ModalUpdateDocs = ({ setOpenUpdateModal, docToUpdate }) => {
   console.log(docToUpdate, "as");
 
   const handleUpdateDoc = async () => {
-    try {
-      const userCollection = collection(db, "users");
-      const userDocRef = doc(userCollection, currentUser.user.uid);
-      const userDocSnap = await getDoc(userDocRef);
+    const docToUpdateObj = {
+      id: docToUpdate.id,
+      documentType: choisedDoc,
+      expireDate: expireDate,
+      forCar: choisedCar,
+      validFrom: validFrom,
+    };
 
-      if (userDocSnap.exists()) {
-        // User document exists, find the index of the car in the 'cars' array
-        const docIndex = myDocs.findIndex((d) => d.id === docToUpdate.id);
-        console.log(myDocs[0]);
-
-        console.log("tuk e indexa", docIndex);
-
-        if (docIndex !== -1) {
-          // Car found in the array, update the car at the specified index
-          const updatedDocs = [...myDocs];
-          const updatedDoc = {
-            id: docToUpdate.id,
-            documentType: choisedDoc,
-            expireDate: expireDate,
-            forCar: choisedCar,
-            validFrom: validFrom,
-          };
-          updatedDocs[docIndex] = updatedDoc; // Replace 'updatedCar' with the updated car object
-
-          await updateDoc(userDocRef, {
-            documents: updatedDocs,
-          });
-
-          setMyDocs(updatedDocs);
-          console.log("Document updated successfully!");
-          setOpenUpdateModal(false);
-        }
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+    const dataType = "documents";
+    const updatedDocs = await updateDataInFirestore(
+      myDocs,
+      docToUpdateObj,
+      dataType
+    );
+    setMyDocs(updatedDocs);
+    console.log("Document updated successfully!");
+    setOpenUpdateModal(false);
   };
 
   return (

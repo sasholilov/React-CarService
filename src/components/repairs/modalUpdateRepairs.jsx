@@ -3,6 +3,7 @@ import { db, getDataFromFirestore } from "../../firebase-config";
 import { collection, updateDoc, arrayUnion } from "firebase/firestore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import UserContext from "../context/userContext";
+import { updateDataInFirestore } from "../../firebase-config";
 
 export const ModalUpdateRepairs = ({ setOpenUpdateModal, repairToUpdate }) => {
   const [choisedCar, setChoisedCar] = useState(repairToUpdate.forCar);
@@ -39,44 +40,23 @@ export const ModalUpdateRepairs = ({ setOpenUpdateModal, repairToUpdate }) => {
   }, [repairToUpdate]);
 
   const handleUpdateRepair = async () => {
-    try {
-      const userCollection = collection(db, "users");
-      const userDocRef = doc(userCollection, currentUser.user.uid);
-      const userDocSnap = await getDoc(userDocRef);
-
-      if (userDocSnap.exists()) {
-        // User document exists, find the index of the car in the 'cars' array
-        const repairIndex = myRepairs.findIndex(
-          (d) => d.id === repairToUpdate.id
-        );
-        console.log(myRepairs[0]);
-        console.log(repairToUpdate);
-        console.log("tuk e indexa", repairToUpdate);
-
-        if (repairIndex !== -1) {
-          // Car found in the array, update the car at the specified index
-          const updatedRepairs = [...myRepairs];
-          const updateRepair = {
-            typeOfRepair: typeOfRepair,
-            service: choisedService,
-            onDate: onDate,
-            forCar: choisedCar,
-            amount: amount,
-          };
-          updatedRepairs[repairIndex] = updateRepair; // Replace 'updatedCar' with the updated car object
-
-          await updateDoc(userDocRef, {
-            repairs: updatedRepairs,
-          });
-
-          setMyRepairs(updatedRepairs);
-          console.log("Repairs updated successfully!");
-          setOpenUpdateModal(false);
-        }
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+    const updateRepair = {
+      id: repairToUpdate.id,
+      typeOfRepair: typeOfRepair,
+      service: choisedService,
+      onDate: onDate,
+      forCar: choisedCar,
+      amount: amount,
+    };
+    const dataType = "repairs";
+    const updateRepairs = await updateDataInFirestore(
+      myRepairs,
+      updateRepair,
+      dataType
+    );
+    setMyRepairs(updateRepairs);
+    console.log("Repairs updated successfully!");
+    setOpenUpdateModal(false);
   };
 
   const handleDeleteRepair = async (rep) => {
