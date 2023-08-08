@@ -1,11 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import {
-  db,
   getDataFromFirestore,
   deleteDataFromFirestore,
 } from "../../firebase-config";
-import { collection, updateDoc, arrayUnion } from "firebase/firestore";
-import { doc, getDoc, setDoc } from "firebase/firestore";
 import UserContext from "../context/userContext";
 import { updateDataInFirestore } from "../../firebase-config";
 

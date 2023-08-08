@@ -6,7 +6,6 @@ import {
   db,
   deleteDataFromFirestore,
 } from "../../firebase-config";
-import { updateDoc, collection, getDoc, doc } from "firebase/firestore";
 import UserContext from "../context/userContext";
 import { Buttons } from "../buttons/buttons.component";
 import { Homenotloged } from "../home/homenotloged";

@@ -1,10 +1,10 @@
 import "./modal.styles.css";
 import { useState, useEffect, useContext } from "react";
-import { db, getDataFromFirestore } from "../../firebase-config";
-import { collection, updateDoc, arrayUnion } from "firebase/firestore";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getDataFromFirestore,
+  addDataToFirestore,
+} from "../../firebase-config";
 import UserContext from "../context/userContext";
-import { addDataToFirestore } from "../../firebase-config";
 
 export const ModalAddDocs = ({ setOpenModal }) => {
   const [myCars, setMycars] = useState([]);

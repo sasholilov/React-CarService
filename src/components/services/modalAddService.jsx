@@ -1,9 +1,6 @@
 import { useEffect, useState, useContext, useRef } from "react";
 import { geocodeAddress } from "./getGeoCodeAddress";
-import { GoogleMap, useLoadScript } from "@react-google-maps/api";
-import { db, getDataFromFirestore } from "../../firebase-config";
-import { collection, updateDoc, arrayUnion } from "firebase/firestore";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useLoadScript } from "@react-google-maps/api";
 import UserContext from "../context/userContext";
 import { Loading } from "../loading/loading.component";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
