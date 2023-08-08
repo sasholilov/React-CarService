@@ -10,6 +10,13 @@
   margin-left: 8em;
 }
 
+.footer-modal {
+  display: flex;
+  justify-content: center;
+  gap: 4em;
+  margin-top: 1em;
+}
+
 .repairs-header-right {
   display: flex;
   flex-direction: row;

@@ -5,6 +5,7 @@ import {
 } from "../../firebase-config";
 import UserContext from "../context/userContext";
 import { updateDataInFirestore } from "../../firebase-config";
+import { Buttons } from "../buttons/buttons.component";
 
 export const ModalUpdateRepairs = ({ setOpenUpdateModal, repairToUpdate }) => {
   const [choisedCar, setChoisedCar] = useState(repairToUpdate.forCar);
@@ -133,19 +134,15 @@ export const ModalUpdateRepairs = ({ setOpenUpdateModal, repairToUpdate }) => {
           />
         </div>
 
-        <div className="footer">
-          <button
-            onClick={() => {
+        <div className="footer-modal">
+          <Buttons
+            buttonStyle={"cancel"}
+            onPush={() => {
               setOpenUpdateModal(false);
             }}
-            id="cancelBtn"
-          >
-            Откажи
-          </button>
-          <button onClick={handleUpdateRepair}>Редактирай</button>
-          <button className="delete" onClick={handleDeleteRepair}>
-            Изтрий
-          </button>
+          />
+          <Buttons buttonStyle={"edit"} onPush={handleUpdateRepair} />
+          <Buttons buttonStyle={"delete"} onPush={handleDeleteRepair} />
         </div>
       </div>
     </div>

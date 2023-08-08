@@ -4,6 +4,7 @@ import {
   addDataToFirestore,
 } from "../../firebase-config";
 import UserContext from "../context/userContext";
+import { Buttons } from "../buttons/buttons.component";
 
 export const ModalAddRepairs = ({ setOpenModal }) => {
   const [choisedCar, setChoisedCar] = useState("");
@@ -99,16 +100,9 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
           <input type="number" onChange={(e) => setAmount(e.target.value)} />
         </div>
 
-        <div className="footer">
-          <button
-            onClick={() => {
-              setOpenModal(false);
-            }}
-            id="cancelBtn"
-          >
-            Откажи
-          </button>
-          <button onClick={handleAddRepair}>Добави</button>
+        <div className="footer-modal">
+          <Buttons buttonStyle={"cancel"} onPush={() => setOpenModal(false)} />
+          <Buttons buttonStyle={"add"} onPush={handleAddRepair} />
         </div>
       </div>
     </div>

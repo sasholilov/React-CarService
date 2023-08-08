@@ -2,9 +2,11 @@ import "./buttons.style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCirclePlus,
-  faBan,
+  faCircleXmark,
   faPen,
+  faRectangleXmark,
   faTrash,
+  faX,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -18,7 +20,7 @@ export const Buttons = ({ buttonStyle, onPush }) => {
   if (buttonStyle === "cancel")
     return (
       <em className="button-cancel" onClick={onPush}>
-        <FontAwesomeIcon icon={faXmark} />
+        <FontAwesomeIcon icon={faX} />
       </em>
     );
   if (buttonStyle === "edit")
