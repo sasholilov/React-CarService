@@ -31,6 +31,7 @@ export const ModalAddService = ({ setOpenModal }) => {
   });
   const mapRef = useRef();
   const address = `${addressServices},${city}`;
+  const { v4: uuidv4 } = require("uuid");
 
   useEffect(() => {
     const fetchCoordinates = async () => {
@@ -59,6 +60,7 @@ export const ModalAddService = ({ setOpenModal }) => {
 
   const handleAddService = async () => {
     const service = {
+      id: uuidv4(),
       nameOfService: nameOfService,
       city: city,
       address: addressServices,

@@ -1,5 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import { db, getDataFromFirestore } from "../../firebase-config";
+import {
+  db,
+  getDataFromFirestore,
+  deleteDataFromFirestore,
+} from "../../firebase-config";
 import { collection, updateDoc, arrayUnion } from "firebase/firestore";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import UserContext from "../context/userContext";
@@ -59,24 +63,15 @@ export const ModalUpdateRepairs = ({ setOpenUpdateModal, repairToUpdate }) => {
     setOpenUpdateModal(false);
   };
 
-  const handleDeleteRepair = async (rep) => {
-    try {
-      const userCollection = collection(db, "users");
-      const userDocRef = doc(userCollection, currentUser.user.uid);
-      const userDocSnap = await getDoc(userDocRef);
-
-      if (userDocSnap.exists()) {
-        // User document exists, remove the car from the 'cars' array field
-        const updatedRepairs = myRepairs.filter((r) => r.id !== rep.id);
-        await updateDoc(userDocRef, {
-          repairs: updatedRepairs,
-        });
-        setMyRepairs(updatedRepairs);
-        setOpenUpdateModal(false);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+  const handleDeleteRepair = async () => {
+    const dataType = "repairs";
+    const updatedRepairs = await deleteDataFromFirestore(
+      myRepairs,
+      repairToUpdate,
+      dataType
+    );
+    setMyRepairs(updatedRepairs);
+    setOpenUpdateModal(false);
   };
 
   return (
@@ -151,10 +146,7 @@ export const ModalUpdateRepairs = ({ setOpenUpdateModal, repairToUpdate }) => {
             Откажи
           </button>
           <button onClick={handleUpdateRepair}>Редактирай</button>
-          <button
-            className="delete"
-            onClick={() => handleDeleteRepair(repairToUpdate)}
-          >
+          <button className="delete" onClick={handleDeleteRepair}>
             Изтрий
           </button>
         </div>

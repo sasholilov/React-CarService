@@ -1,7 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { ModalAddDocs } from "./modalAddDocs";
 import { ModalUpdateDocs } from "./modalUpdateDocs";
-import { getDataFromFirestore, db } from "../../firebase-config";
+import {
+  getDataFromFirestore,
+  db,
+  deleteDataFromFirestore,
+} from "../../firebase-config";
 import { updateDoc, collection, getDoc, doc } from "firebase/firestore";
 import UserContext from "../context/userContext";
 import { Buttons } from "../buttons/buttons.component";
@@ -26,22 +30,9 @@ export const Documents = () => {
   }, [modalOpen, openUpdateModal, currentDoc]);
 
   const handleDeleteDoc = async (docs) => {
-    try {
-      const userCollection = collection(db, "users");
-      const userDocRef = doc(userCollection, currentUser.user.uid);
-      const userDocSnap = await getDoc(userDocRef);
-
-      if (userDocSnap.exists()) {
-        // User document exists, remove the car from the 'cars' array field
-        const updatedDocs = myDocs.filter((d) => d !== docs);
-        await updateDoc(userDocRef, {
-          documents: updatedDocs,
-        });
-        setMyDocs(updatedDocs);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+    const dataType = "documents";
+    const updatedDocs = await deleteDataFromFirestore(myDocs, docs, dataType);
+    setMyDocs(updatedDocs);
   };
 
   const handleUpdateDoc = (docToUpdate) => {

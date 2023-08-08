@@ -1,7 +1,4 @@
 import React from "react";
-import { collection, updateDoc, arrayUnion } from "firebase/firestore";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db, getDataFromFirestore } from "../../firebase-config";
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../context/userContext";
 import { data } from "../../data";
@@ -11,9 +8,10 @@ import { Homenotloged } from "../home/homenotloged";
 import {
   addDataToFirestore,
   updateDataInFirestore,
+  deleteDataFromFirestore,
+  getDataFromFirestore,
 } from "../../firebase-config";
 const { v4: uuidv4 } = require("uuid");
-
 export const CarsUpdate = () => {
   const currentUser = useContext(UserContext);
   const navigate = useNavigate();
@@ -86,22 +84,9 @@ export const CarsUpdate = () => {
   };
 
   const handleDeleteCar = async (car) => {
-    try {
-      const userCollection = collection(db, "users");
-      const userDocRef = doc(userCollection, currentUser.user.uid);
-      const userDocSnap = await getDoc(userDocRef);
-
-      if (userDocSnap.exists()) {
-        // User document exists, remove the car from the 'cars' array field
-        const updatedCars = myCars.filter((c) => c !== car);
-        await updateDoc(userDocRef, {
-          cars: updatedCars,
-        });
-        setMycars(updatedCars);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+    const dataType = "cars";
+    const updatedCars = await deleteDataFromFirestore(myCars, car, dataType);
+    setMycars(updatedCars);
   };
 
   const handleUpdateCar = async (car, i) => {

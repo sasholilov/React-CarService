@@ -120,3 +120,32 @@ export const updateDataInFirestore = async (
     console.log(error.message);
   }
 };
+
+export const deleteDataFromFirestore = async (
+  dataArrayName,
+  dataDoc,
+  dataType
+) => {
+  try {
+    const userCollection = collection(db, "users");
+    const userDocRef = doc(userCollection, auth.currentUser.uid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      const updatedData = dataArrayName.filter((d) => d.id !== dataDoc.id);
+
+      const updateObject = {
+        [dataType]: updatedData,
+      };
+
+      await updateDoc(userDocRef, updateObject);
+
+      console.log("firebase", dataDoc);
+      console.log("Document deleted successfully!");
+
+      return updatedData;
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};

@@ -3,14 +3,15 @@ import { Loading } from "../loading/loading.component";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { ModalAddService } from "./modalAddService";
 import { Icon } from "leaflet";
-import { getDataFromFirestore, db } from "../../firebase-config";
-import { updateDoc, collection, getDoc, doc } from "firebase/firestore";
+import {
+  getDataFromFirestore,
+  deleteDataFromFirestore,
+} from "../../firebase-config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { Buttons } from "../buttons/buttons.component";
 import { Homenotloged } from "../home/homenotloged";
 import UserContext from "../context/userContext";
-
 import "leaflet/dist/leaflet.css";
 import "./services.style.css";
 
@@ -48,22 +49,13 @@ export const Services = () => {
 
   const handleDeleteServices = async (service) => {
     window.confirm("Are you sure you wish to delete this item?");
-    try {
-      const userCollection = collection(db, "users");
-      const userDocRef = doc(userCollection, currentUser.user.uid);
-      const userDocSnap = await getDoc(userDocRef);
-
-      if (userDocSnap.exists()) {
-        // User document exists, remove the car from the 'cars' array field
-        const updatedServcies = myServices.filter((s) => s !== service);
-        await updateDoc(userDocRef, {
-          services: updatedServcies,
-        });
-        setMyServices(updatedServcies);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+    const dataType = "services";
+    const updatedSeriveces = await deleteDataFromFirestore(
+      myServices,
+      service,
+      dataType
+    );
+    setMyServices(updatedSeriveces);
   };
 
   return (
