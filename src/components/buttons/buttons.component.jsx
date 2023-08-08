@@ -2,12 +2,9 @@ import "./buttons.style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCirclePlus,
-  faCircleXmark,
   faPen,
-  faRectangleXmark,
   faTrash,
   faX,
-  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const Buttons = ({ buttonStyle, onPush }) => {

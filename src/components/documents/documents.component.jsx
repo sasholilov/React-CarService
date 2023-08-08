@@ -3,7 +3,6 @@ import { ModalAddDocs } from "./modalAddDocs";
 import { ModalUpdateDocs } from "./modalUpdateDocs";
 import {
   getDataFromFirestore,
-  db,
   deleteDataFromFirestore,
 } from "../../firebase-config";
 import UserContext from "../context/userContext";
