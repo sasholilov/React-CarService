@@ -5,3 +5,27 @@
   cursor: pointer;
   color: rgb(133, 173, 73);
 }
+
+.button-cancel {
+  display: flex;
+  flex-direction: row;
+  font-size: 2em;
+  cursor: pointer;
+  color: rgb(230, 189, 43);
+}
+
+.button-edit {
+  display: flex;
+  flex-direction: row;
+  font-size: 2em;
+  cursor: pointer;
+  color: rgb(133, 173, 73);
+}
+
+.button-delete {
+  display: flex;
+  flex-direction: row;
+  font-size: 2em;
+  cursor: pointer;
+  color: rgb(253, 91, 91);
+}
