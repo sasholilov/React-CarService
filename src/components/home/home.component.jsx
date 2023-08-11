@@ -78,7 +78,7 @@ export const Home = () => {
   useEffect(() => {
     const messagesArray = generateMessage();
     setDisplayMessage(messagesArray);
-  }, [myDocs]);
+  }, [myDocs, myCars]);
 
   useEffect(() => {
     const finalAmount = calculateAmount(choisedCar);
@@ -94,7 +94,7 @@ export const Home = () => {
     return () => {
       clearInterval(interval); // Cleanup the interval on component unmount
     };
-  }, [choisedCar]);
+  }, [choisedCar, myCars, myRepairs]);
 
   const handleChoisedCar = (selectedCar) => {
     const [, carLicenseNumber] = selectedCar.split(" - ");
@@ -248,8 +248,8 @@ export const Home = () => {
                 </span>
               </div>
               {displayMessage && displayMessage.length > 0 ? (
-                displayMessage.map((m) => (
-                  <p>
+                displayMessage.map((m, i) => (
+                  <p key={i}>
                     {m.estimateDays === 0
                       ? `Днес изтича ${m.documentType} за автомобил ${m.forCar}`
                       : m.estimateDays > 0
