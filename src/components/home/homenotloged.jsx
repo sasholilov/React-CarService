@@ -6,6 +6,7 @@ export const Homenotloged = () => {
       <img
         src={process.env.PUBLIC_URL + "/car-service-logo.png"}
         className="logo"
+        alt="car-service-logo"
       />
       <h2>
         Моля, влезте в профила си за да ползвате функционалността на сайта или

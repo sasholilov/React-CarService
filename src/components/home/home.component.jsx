@@ -59,7 +59,7 @@ export const Home = () => {
   }, [choisedCar]);
 
   const handleChoisedCar = (selectedCar) => {
-    const [carMake, carLicenseNumber] = selectedCar.split(" - ");
+    const [, carLicenseNumber] = selectedCar.split(" - ");
     const selectedCarObj = myCars.find(
       (car) => car.licenseNumber === carLicenseNumber
     );
@@ -109,9 +109,6 @@ export const Home = () => {
     });
     return newFilteredDocs;
   };
-
-  const messagesArray = generateMessage();
-  console.log("proverka tuk", displayMessage);
 
   return (
     <div>

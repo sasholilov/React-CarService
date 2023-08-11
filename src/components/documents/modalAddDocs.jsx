@@ -1,10 +1,9 @@
 import "./modal.styles.css";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import {
   getDataFromFirestore,
   addDataToFirestore,
 } from "../../firebase-config";
-import UserContext from "../context/userContext";
 import { Buttons } from "../buttons/buttons.component";
 
 export const ModalAddDocs = ({ setOpenModal }) => {
