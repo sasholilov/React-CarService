@@ -12,6 +12,7 @@ import {
   getDataFromFirestore,
 } from "../../firebase-config";
 import { Buttons } from "../buttons/buttons.component";
+import { NO_IMAGE } from "../../config/config";
 const { v4: uuidv4 } = require("uuid");
 export const CarsUpdate = () => {
   const currentUser = useContext(UserContext);
@@ -131,8 +132,7 @@ export const CarsUpdate = () => {
       odometer: "",
       horsePower: "",
       engine: "",
-      carImgUrl:
-        "https://boodabike.com/wp-content/uploads/2023/03/no-image.jpg",
+      carImgUrl: NO_IMAGE,
     };
 
     const typeData = "cars";
