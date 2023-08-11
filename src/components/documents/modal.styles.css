@@ -74,8 +74,15 @@
   color: #252e46;
 }
 
+.footer-update-docs {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  gap: 3em;
+}
+
 /* Responsive styles for the footer */
-.modalContainer .footer {
+.modalContainer .footer-update-docs {
   flex: 20%;
   display: flex;
   justify-content: center;
@@ -83,7 +90,7 @@
 }
 
 /* Responsive styles for the buttons within the footer */
-.modalContainer .footer button {
+.modalContainer .footer-update-docs button {
   padding: 8px 24px;
   margin: 1em;
   margin-bottom: 2em;
@@ -125,7 +132,7 @@
     display: flex;
   }
 
-  .modalContainer .footer {
+  .modalContainer .footer-update-docs {
     margin-bottom: 0;
   }
   .modalContainer input {

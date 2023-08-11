@@ -97,12 +97,14 @@ export const Documents = () => {
                     </span>
                   </p>
                   <footer className="document-card-footer">
-                    <button onClick={() => handleUpdateDoc(docs)}>
-                      Редакция
-                    </button>
-                    <button onClick={() => handleDeleteDoc(docs)}>
-                      Изтрий
-                    </button>
+                    <Buttons
+                      buttonStyle="edit"
+                      onPush={() => handleUpdateDoc(docs)}
+                    />
+                    <Buttons
+                      buttonStyle="delete"
+                      onPush={() => handleDeleteDoc(docs)}
+                    />
                   </footer>
                 </div>
               ))}

@@ -141,7 +141,7 @@ export const ModalUpdateRepairs = ({ setOpenUpdateModal, repairToUpdate }) => {
               setOpenUpdateModal(false);
             }}
           />
-          <Buttons buttonStyle={"edit"} onPush={handleUpdateRepair} />
+          <Buttons buttonStyle={"apply"} onPush={handleUpdateRepair} />
           <Buttons buttonStyle={"delete"} onPush={handleDeleteRepair} />
         </div>
       </div>

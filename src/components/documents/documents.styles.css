@@ -81,7 +81,10 @@
 
 .document-card-footer {
   display: flex;
-  justify-content: end;
+  justify-content: center;
+  gap: 2em;
+  margin-bottom: 1em;
+  font-size: 12px;
 }
 .document-card-footer button {
   margin-left: 0em;

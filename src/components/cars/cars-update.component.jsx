@@ -11,6 +11,7 @@ import {
   deleteDataFromFirestore,
   getDataFromFirestore,
 } from "../../firebase-config";
+import { Buttons } from "../buttons/buttons.component";
 const { v4: uuidv4 } = require("uuid");
 export const CarsUpdate = () => {
   const currentUser = useContext(UserContext);
@@ -239,10 +240,14 @@ export const CarsUpdate = () => {
                   onChange={(e) => (car.carImgUrl = e.target.value)}
                 />
                 <section className="cars-btn">
-                  <button onClick={() => handleUpdateCar(car, i)}>
-                    Update
-                  </button>
-                  <button onClick={() => handleDeleteCar(car)}>Delete</button>
+                  <Buttons
+                    buttonStyle="apply"
+                    onPush={() => handleUpdateCar(car, i)}
+                  />
+                  <Buttons
+                    buttonStyle="delete"
+                    onPush={() => handleDeleteCar(car)}
+                  />
                 </section>
               </div>
             ))}

@@ -3,7 +3,7 @@
   flex-direction: row;
   font-size: 2em;
   cursor: pointer;
-  color: rgb(133, 173, 73);
+  color: #252e46;
 }
 
 .button-cancel {
@@ -11,7 +11,7 @@
   flex-direction: row;
   font-size: 2em;
   cursor: pointer;
-  color: rgb(221, 176, 11);
+  color: #252e46;
 }
 
 .button-edit {
@@ -19,7 +19,7 @@
   flex-direction: row;
   font-size: 2em;
   cursor: pointer;
-  color: rgb(133, 173, 73);
+  color: #252e46;
 }
 
 .button-delete {
@@ -27,5 +27,13 @@
   flex-direction: row;
   font-size: 2em;
   cursor: pointer;
-  color: rgb(253, 91, 91);
+  color: #252e46;
+}
+
+.button-apply {
+  display: flex;
+  flex-direction: row;
+  font-size: 2em;
+  cursor: pointer;
+  color: #252e46;
 }

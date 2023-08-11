@@ -1,6 +1,7 @@
 import "./buttons.style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCheck,
   faCirclePlus,
   faPen,
   faTrash,
@@ -31,6 +32,12 @@ export const Buttons = ({ buttonStyle, onPush }) => {
     return (
       <em className="button-delete" onClick={onPush}>
         <FontAwesomeIcon icon={faTrash} />
+      </em>
+    );
+  if (buttonStyle === "apply")
+    return (
+      <em className="button-apply" onClick={onPush}>
+        <FontAwesomeIcon icon={faCheck} />
       </em>
     );
 };
