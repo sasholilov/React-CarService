@@ -36,6 +36,7 @@ export const Navbar = () => {
           <img
             src={process.env.PUBLIC_URL + "/car-service-logo.png"}
             className="logo"
+            alt="car-service-logo"
           />
         </Link>
         <ul className="menu-links">

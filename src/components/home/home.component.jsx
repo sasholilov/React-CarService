@@ -23,6 +23,43 @@ export const Home = () => {
   const [displayedAmount, setDisplayedAmount] = useState(0);
   const [displayMessage, setDisplayMessage] = useState([]);
 
+  const generateMessage = () => {
+    if (!myDocs || myDocs.length === 0) {
+      return [];
+    }
+    const today = new Date();
+    const filteredDocs = myDocs.filter((doc) => {
+      const expireDate = new Date(doc.expireDate);
+      const timeDifferenceInMilliseconds =
+        (expireDate.getTime() - today.getTime()) / 1000 / 60 / 60 / 24;
+      return timeDifferenceInMilliseconds <= DAYS_FOR_MESSAGE;
+    });
+
+    const newFilteredDocs = filteredDocs.map((doc) => {
+      const newExpireDate = new Date(doc.expireDate);
+      const estimateDays = Math.floor(
+        (newExpireDate.getTime() - today.getTime()) / 1000 / 60 / 60 / 24
+      );
+      return { ...doc, estimateDays };
+    });
+    return newFilteredDocs;
+  };
+
+  const calculateAmount = (carObj) => {
+    if (!myCars || myCars.length === 0 || !myRepairs) {
+      return 0;
+    }
+    const { licenseNumber } = carObj;
+    const repairsForCar = myRepairs.filter((repair) =>
+      repair.forCar.includes(licenseNumber)
+    );
+    const totalAmount = repairsForCar.reduce(
+      (acc, repair) => acc + Number(repair.amount),
+      0
+    );
+    return totalAmount;
+  };
+
   useEffect(() => {
     getDataFromFirestore()
       .then((data) => {
@@ -32,6 +69,7 @@ export const Home = () => {
         setMyRepairs(data.repairs);
         setChoisedCar(data.cars[0] ? data.cars[0] : 0);
       })
+
       .catch((error) => {
         console.log(error.message);
       });
@@ -40,7 +78,7 @@ export const Home = () => {
   useEffect(() => {
     const messagesArray = generateMessage();
     setDisplayMessage(messagesArray);
-  }, [myDocs]);
+  }, [myDocs, generateMessage]);
 
   useEffect(() => {
     const finalAmount = calculateAmount(choisedCar);
@@ -71,43 +109,6 @@ export const Home = () => {
       return "ден";
     }
     return "дни";
-  };
-
-  const calculateAmount = (carObj) => {
-    if (!myCars || myCars.length === 0 || !myRepairs) {
-      return 0;
-    }
-    const { licenseNumber } = carObj;
-    const repairsForCar = myRepairs.filter((repair) =>
-      repair.forCar.includes(licenseNumber)
-    );
-    const totalAmount = repairsForCar.reduce(
-      (acc, repair) => acc + Number(repair.amount),
-      0
-    );
-    return totalAmount;
-  };
-
-  const generateMessage = () => {
-    if (!myDocs || myDocs.length === 0) {
-      return [];
-    }
-    const today = new Date();
-    const filteredDocs = myDocs.filter((doc) => {
-      const expireDate = new Date(doc.expireDate);
-      const timeDifferenceInMilliseconds =
-        (expireDate.getTime() - today.getTime()) / 1000 / 60 / 60 / 24;
-      return timeDifferenceInMilliseconds <= DAYS_FOR_MESSAGE;
-    });
-
-    const newFilteredDocs = filteredDocs.map((doc) => {
-      const newExpireDate = new Date(doc.expireDate);
-      const estimateDays = Math.floor(
-        (newExpireDate.getTime() - today.getTime()) / 1000 / 60 / 60 / 24
-      );
-      return { ...doc, estimateDays };
-    });
-    return newFilteredDocs;
   };
 
   return (
