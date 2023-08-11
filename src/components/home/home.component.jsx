@@ -78,7 +78,7 @@ export const Home = () => {
   useEffect(() => {
     const messagesArray = generateMessage();
     setDisplayMessage(messagesArray);
-  }, [myDocs, myCars]);
+  }, [myDocs]);
 
   useEffect(() => {
     const finalAmount = calculateAmount(choisedCar);
@@ -94,7 +94,7 @@ export const Home = () => {
     return () => {
       clearInterval(interval); // Cleanup the interval on component unmount
     };
-  }, [choisedCar, myCars, myRepairs]);
+  }, [choisedCar]);
 
   const handleChoisedCar = (selectedCar) => {
     const [, carLicenseNumber] = selectedCar.split(" - ");
