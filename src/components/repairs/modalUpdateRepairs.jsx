@@ -1,9 +1,8 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import {
   getDataFromFirestore,
   deleteDataFromFirestore,
 } from "../../firebase-config";
-import UserContext from "../context/userContext";
 import { updateDataInFirestore } from "../../firebase-config";
 import { Buttons } from "../buttons/buttons.component";
 
@@ -16,7 +15,6 @@ export const ModalUpdateRepairs = ({ setOpenUpdateModal, repairToUpdate }) => {
   const [myServices, setMyServices] = useState([]);
   const [myRepairs, setMyRepairs] = useState([]);
   const [onDate, setOnDate] = useState(repairToUpdate.onDate);
-  const currentUser = useContext(UserContext);
 
   console.log("check here", repairToUpdate);
 

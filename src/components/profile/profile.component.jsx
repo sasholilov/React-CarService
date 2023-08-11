@@ -32,7 +32,7 @@ export const Profile = () => {
           enteredPassword
         );
         await reauthenticateWithCredential(auth.currentUser, credential);
-        const newMail = await updateEmail(auth.currentUser, newEmail);
+        await updateEmail(auth.currentUser, newEmail);
         setNewEmail("");
       }
       // Update the profile

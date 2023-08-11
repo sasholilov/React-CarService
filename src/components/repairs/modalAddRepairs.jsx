@@ -1,9 +1,8 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import {
   getDataFromFirestore,
   addDataToFirestore,
 } from "../../firebase-config";
-import UserContext from "../context/userContext";
 import { Buttons } from "../buttons/buttons.component";
 
 export const ModalAddRepairs = ({ setOpenModal }) => {
@@ -15,7 +14,6 @@ export const ModalAddRepairs = ({ setOpenModal }) => {
   const [myServices, setMyServices] = useState([]);
   const [onDate, setOnDate] = useState("");
   const { v4: uuidv4 } = require("uuid");
-  const currentUser = useContext(UserContext);
 
   useEffect(() => {
     getDataFromFirestore()

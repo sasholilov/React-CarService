@@ -1,7 +1,7 @@
 import UserContext from "../context/userContext";
 import { ModalAddRepairs } from "./modalAddRepairs";
 import { ModalUpdateRepairs } from "./modalUpdateRepairs";
-import { getDataFromFirestore, db } from "../../firebase-config";
+import { getDataFromFirestore } from "../../firebase-config";
 import { useState, useEffect, useContext } from "react";
 import { Buttons } from "../buttons/buttons.component";
 import { Homenotloged } from "../home/homenotloged";
@@ -12,7 +12,6 @@ import {
   faCar,
   faCalendar,
   faWallet,
-  faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import "./repairs.css";
 

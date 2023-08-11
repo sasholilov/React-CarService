@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext, useRef } from "react";
 import { geocodeAddress } from "./getGeoCodeAddress";
 import { useLoadScript } from "@react-google-maps/api";
-import UserContext from "../context/userContext";
 import { Loading } from "../loading/loading.component";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import { Icon } from "leaflet";
@@ -16,7 +15,6 @@ export const ModalAddService = ({ setOpenModal }) => {
     latitude: 42.697863,
     longitude: 23.322179,
   });
-  const currentUser = useContext(UserContext);
   const [nameOfService, setNameOfService] = useState("");
   const [city, setCity] = useState("София");
   const [addressServices, setAddressService] = useState("");

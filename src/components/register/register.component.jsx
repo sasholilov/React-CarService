@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import "./register.css";
 import { auth } from "../../firebase-config";
@@ -45,7 +45,7 @@ export const Register = () => {
       setErrorMessage("Моля въведете фамилия!");
       return;
     }
-    if (registerPassword != registerConfirmPassword) {
+    if (registerPassword !== registerConfirmPassword) {
       setErrorMessage("Паролата не съвпада!");
       return;
     }

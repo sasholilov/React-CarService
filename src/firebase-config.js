@@ -26,11 +26,7 @@ export const db = getFirestore(app);
 
 export const signIn = async (signInEmail, singInPassword) => {
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      signInEmail,
-      singInPassword
-    );
+    await signInWithEmailAndPassword(auth, signInEmail, singInPassword);
     return null;
   } catch (error) {
     console.log(error);
