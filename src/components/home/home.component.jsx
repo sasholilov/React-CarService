@@ -78,7 +78,7 @@ export const Home = () => {
   useEffect(() => {
     const messagesArray = generateMessage();
     setDisplayMessage(messagesArray);
-  }, [myDocs, generateMessage]);
+  }, [myDocs]);
 
   useEffect(() => {
     const finalAmount = calculateAmount(choisedCar);
