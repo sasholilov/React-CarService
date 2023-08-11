@@ -218,7 +218,7 @@ export const Home = () => {
                   <div className="home-recent-item-detail">
                     <p>Сервиз</p>
                     <p>
-                      {myServices[myServices.length - 1].nameOfService}в гр.{" "}
+                      {myServices[myServices.length - 1].nameOfService} в гр.{" "}
                       {myServices[myServices.length - 1].city}
                     </p>
                   </div>

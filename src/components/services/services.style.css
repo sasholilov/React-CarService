@@ -94,6 +94,12 @@
   padding: 1em;
   border-radius: 1em;
 }
+
+.message-box-map {
+  margin-top: 2em;
+  padding: 1em;
+  border-radius: 1em;
+}
 @media screen and (max-width: 800px) {
   .header-services {
     display: flex;
@@ -141,5 +147,10 @@
     align-items: flex-start;
     margin-left: -8em;
     margin-top: 0em;
+  }
+}
+@media screen and (max-width: 800px) {
+  .message-box-map {
+    display: none;
   }
 }

@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import UserContext from "../context/userContext";
 import { Link } from "react-router-dom";
 import "./cars-list.css";
+import { Buttons } from "../buttons/buttons.component";
 
 export const Cars = () => {
   const currentUser = useContext(UserContext);
@@ -67,8 +68,9 @@ export const Cars = () => {
           ) : (
             <div className="no-cars">
               <h1>Нямате регистрирани автомобили</h1>
+              <h3>Добави автомобил</h3>
               <Link to="/cars/carsupdate">
-                <button>Добави автомобил</button>
+                <Buttons buttonStyle="add" />
               </Link>
             </div>
           )}

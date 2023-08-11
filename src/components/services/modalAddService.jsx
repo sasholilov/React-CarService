@@ -9,6 +9,7 @@ import { addDataToFirestore } from "../../firebase-config";
 
 import "leaflet/dist/leaflet.css";
 import "./modalServices.style.css";
+import { Buttons } from "../buttons/buttons.component";
 
 export const ModalAddService = ({ setOpenModal }) => {
   const [coordinates, setCoordinates] = useState({
@@ -95,16 +96,14 @@ export const ModalAddService = ({ setOpenModal }) => {
           <label>Телефонен номер</label>
           <input onChange={(e) => setTelephone(e.target.value)} />
         </div>
-        <div className="footer">
-          <button
-            onClick={() => {
+        <div className="footer-services">
+          <Buttons
+            buttonStyle="cancel"
+            onPush={() => {
               setOpenModal(false);
             }}
-            id="cancelBtn"
-          >
-            Откажи
-          </button>
-          <button onClick={handleAddService}>Добави</button>
+          />
+          <Buttons buttonStyle="add" onPush={handleAddService} />
         </div>
       </div>
       <MapContainer

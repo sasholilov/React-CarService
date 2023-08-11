@@ -124,13 +124,12 @@ export const Services = () => {
                   </div>
                 ))}
             </div>
-            {openModal ? null : (
+            {openModal ? null : myServices?.length > 0 ? (
               <MapContainer center={center} zoom={12} ref={mapRef}>
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-
                 {myServices?.length > 0 &&
                   myServices?.map((m, i) => (
                     <Marker
@@ -149,6 +148,8 @@ export const Services = () => {
                     </Marker>
                   ))}
               </MapContainer>
+            ) : (
+              <h3 className="message-box-map">Местоположение</h3>
             )}
           </div>
         </div>

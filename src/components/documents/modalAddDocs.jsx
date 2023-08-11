@@ -5,6 +5,7 @@ import {
   addDataToFirestore,
 } from "../../firebase-config";
 import UserContext from "../context/userContext";
+import { Buttons } from "../buttons/buttons.component";
 
 export const ModalAddDocs = ({ setOpenModal }) => {
   const [myCars, setMycars] = useState([]);
@@ -92,16 +93,14 @@ export const ModalAddDocs = ({ setOpenModal }) => {
           ></input>
         </div>
 
-        <div className="footer">
-          <button
-            onClick={() => {
+        <div className="footer-update-docs">
+          <Buttons
+            buttonStyle="cancel"
+            onPush={() => {
               setOpenModal(false);
             }}
-            id="cancelBtn"
-          >
-            Откажи
-          </button>
-          <button onClick={handleAddDoc}>Добави</button>
+          />
+          <Buttons buttonStyle="add" onPush={handleAddDoc} />
         </div>
       </div>
     </div>
