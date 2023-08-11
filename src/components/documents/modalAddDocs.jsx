@@ -13,7 +13,6 @@ export const ModalAddDocs = ({ setOpenModal }) => {
   const [choisedCar, setChoisedCar] = useState("");
   const [validFrom, setValidFrom] = useState("");
   const [expireDate, setExpireDate] = useState("");
-  const currentUser = useContext(UserContext);
   const { v4: uuidv4 } = require("uuid");
 
   useEffect(() => {

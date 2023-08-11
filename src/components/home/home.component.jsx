@@ -11,7 +11,6 @@ import {
   faScrewdriverWrench,
   faWarehouse,
   faChartSimple,
-  faDollar,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const Home = () => {

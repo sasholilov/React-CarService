@@ -19,7 +19,6 @@ export const CarsUpdate = () => {
   const [selectedMake, setSelectedMake] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
-  const [licenseNumber, setLicenseNumber] = useState("");
   const [filteredModels, setFilteredModels] = useState([]);
   const [filteredYears, setFilteredYears] = useState([]);
   const [choisedCar, setChoisedCar] = useState({});
@@ -127,7 +126,7 @@ export const CarsUpdate = () => {
     const extendChoisedCar = {
       ...choisedCar,
       id: uuidv4(),
-      licenseNumber: "",
+      licenseNumber: "0",
       exactYear: "",
       odometer: "",
       horsePower: "",

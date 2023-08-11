@@ -4,7 +4,6 @@ import {
   getDataFromFirestore,
   updateDataInFirestore,
 } from "../../firebase-config";
-import UserContext from "../context/userContext";
 import { Buttons } from "../buttons/buttons.component";
 
 export const ModalUpdateDocs = ({ setOpenUpdateModal, docToUpdate }) => {
@@ -14,7 +13,6 @@ export const ModalUpdateDocs = ({ setOpenUpdateModal, docToUpdate }) => {
   const [validFrom, setValidFrom] = useState(docToUpdate.validFrom);
   const [expireDate, setExpireDate] = useState(docToUpdate.expireDate);
   const [myDocs, setMyDocs] = useState([]);
-  const currentUser = useContext(UserContext);
 
   useEffect(() => {
     getDataFromFirestore()

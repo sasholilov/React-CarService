@@ -41,7 +41,7 @@ export const Cars = () => {
               <section className="my-cars-list">
                 {myCars.map((car, i) => (
                   <div key={i} className="list-car-item">
-                    <img src={car.carImgUrl} />
+                    <img src={car.carImgUrl} alt={car.make} />
                     <h3>
                       {car.make} {car.model} {car.year}
                     </h3>
