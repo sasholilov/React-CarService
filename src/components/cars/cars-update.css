@@ -13,6 +13,16 @@ h1 {
   justify-content: space-between;
 }
 
+.error-message-car {
+  text-align: center;
+  margin: 0 auto 1em auto;
+  background-color: #252e46;
+  padding: 0.5em 1em 0.5em 1em;
+  border-radius: 1em;
+  color: orange;
+  font-size: 16px;
+}
+
 .container-form-cars select {
   margin: 2em 0.97em;
   padding: 0.4rem 4.2rem 0.4rem 4.2rem;

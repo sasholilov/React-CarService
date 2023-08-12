@@ -5,6 +5,7 @@ import { data } from "../../data";
 import { useNavigate } from "react-router-dom";
 import "./cars-update.css";
 import { Homenotloged } from "../home/homenotloged";
+import { getErrorMessageForCar } from "../../config/errorMessages";
 import {
   addDataToFirestore,
   updateDataInFirestore,
@@ -25,6 +26,7 @@ export const CarsUpdate = () => {
   const [choisedCar, setChoisedCar] = useState({});
   const [myCars, setMycars] = useState([]);
   const [added, setAddet] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     getDataFromFirestore()
@@ -52,6 +54,7 @@ export const CarsUpdate = () => {
       setSelectedModel("");
       setFilteredYears([]);
     }
+    setErrorMessage("");
   };
 
   const handleModelChange = (event) => {
@@ -72,16 +75,19 @@ export const CarsUpdate = () => {
     } else {
       setFilteredYears([]);
     }
+    setErrorMessage("");
   };
 
   const handleYearChange = (event) => {
     const choisedYear = event.target.value;
     setSelectedYear(choisedYear);
+
     setChoisedCar({
       make: selectedMake,
       model: selectedModel,
       year: choisedYear,
     });
+    setErrorMessage("");
   };
 
   const handleDeleteCar = async (car) => {
@@ -124,6 +130,17 @@ export const CarsUpdate = () => {
   console.log("User is loaded", currentUser.user.uid);
 
   const handleAddCar = async (data) => {
+    const errorMessage = getErrorMessageForCar(data);
+    if (errorMessage) {
+      setErrorMessage(errorMessage);
+      return;
+    }
+
+    setErrorMessage("Успешно добавен автомобил!");
+    setTimeout(() => {
+      setErrorMessage("");
+    }, 3000);
+
     const extendChoisedCar = {
       ...choisedCar,
       id: uuidv4(),
@@ -185,6 +202,9 @@ export const CarsUpdate = () => {
         <button onClick={() => handleAddCar(choisedCar)}>
           Добави автомобил
         </button>
+        {errorMessage && (
+          <span className="error-message-car">{errorMessage}</span>
+        )}
       </section>
 
       {myCars?.length > 0 ? (

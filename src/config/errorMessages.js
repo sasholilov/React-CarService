@@ -7,3 +7,7 @@ export const getErrorMessage = (error) => {
   if (error.code === "auth/wrong-password") return "Грешни данни за вход!";
   if (error.code === "auth/user-not-found") return "Грешни данни за вход!";
 };
+
+export const getErrorMessageForCar = (car) => {
+  if (!car.make) return "Моля изберете всички полета за марка, модел и година!";
+};
